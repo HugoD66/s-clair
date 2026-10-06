@@ -1,0 +1,28 @@
+# Documents de travail privés, conservés uniquement en local.
+/AGENTS.md
+/docs/
+/a-eclairsir.txt
+/questions*.docx
+
+# Configuration locale des éditeurs et agents.
+.idea/
+.vscode/
+.agents/
+.codex/
+
+# Secrets, données et sauvegardes locales.
+.env
+.env.*
+!.env.example
+/data/
+/uploads/
+/backups/
+
+# Dépendances, caches et résultats générés.
+__pycache__/
+*.py[cod]
+node_modules/
+dist/
+coverage/
+playwright-report/
+test-results/
