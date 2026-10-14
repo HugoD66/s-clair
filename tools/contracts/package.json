@@ -1,0 +1,12 @@
+{
+  "name": "@s-clair/contracts",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate": "openapi-typescript ../../contracts/openapi.json -o ../../apps/web/src/app/api-types.ts"
+  },
+  "devDependencies": {
+    "openapi-typescript": "7.13.0",
+    "typescript": "5.9.3"
+  }
+}

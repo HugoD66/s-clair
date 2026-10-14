@@ -1,0 +1,15 @@
+{
+  "title": "Check the connection",
+  "intro": "s-clair technical foundation demonstration.",
+  "language": "Language",
+  "load": "Read the record",
+  "missing": "Test a missing record",
+  "loading": "Loading…",
+  "record": "Stored record",
+  "idle": "Ready to query the database.",
+  "demoRecordNotFound": "Demo record not found.",
+  "databaseUnavailable": "The database is temporarily unavailable.",
+  "validationError": "The request is invalid.",
+  "unexpectedError": "Something went wrong. Please try again shortly.",
+  "footer": "Local demonstration · No student data"
+}

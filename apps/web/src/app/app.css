@@ -1,0 +1,127 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem clamp(1rem, 5vw, 4rem);
+  border-bottom: 1px solid #dfe4e9;
+  gap: 1rem;
+}
+.brand {
+  font-size: 1.7rem;
+  font-weight: 750;
+  letter-spacing: -0.08em;
+}
+.dot {
+  color: #2456c8;
+}
+nav {
+  display: flex;
+  gap: 0.35rem;
+}
+nav button {
+  border: 0;
+  padding: 0.6rem;
+}
+nav button[aria-pressed='true'] {
+  background: #e2eafa;
+  color: #153d91;
+}
+main {
+  width: min(46rem, calc(100% - 2rem));
+  margin: auto;
+  padding: 4rem 0;
+}
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  color: #536174;
+}
+h1 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  margin: 1rem 0;
+}
+.intro {
+  color: #536174;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+section {
+  padding: 1.5rem;
+  background: white;
+  border: 1px solid #dfe4e9;
+  border-radius: 1rem;
+}
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+button {
+  font: inherit;
+  cursor: pointer;
+  border: 1px solid #c6d0dc;
+  padding: 0.8rem 1rem;
+  border-radius: 0.5rem;
+  background: white;
+  color: inherit;
+}
+button:focus-visible {
+  outline: 3px solid #2456c8;
+  outline-offset: 3px;
+}
+button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+.primary {
+  background: #2456c8;
+  border-color: #2456c8;
+  color: white;
+}
+.result {
+  min-height: 8rem;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background: #f5f7fa;
+  overflow-wrap: anywhere;
+}
+.caption {
+  font-size: 0.8rem;
+  color: #536174;
+}
+.value {
+  font-size: 1.35rem;
+  font-weight: 650;
+}
+.idle {
+  color: #536174;
+}
+.error {
+  color: #a12631;
+}
+code {
+  font-size: 0.8rem;
+}
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  color: #536174;
+  font-size: 0.8rem;
+}
+@media (max-width: 420px) {
+  header {
+    flex-wrap: wrap;
+  }
+  .actions button {
+    width: 100%;
+  }
+}

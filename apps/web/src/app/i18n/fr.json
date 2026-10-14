@@ -1,0 +1,15 @@
+{
+  "title": "Vérifier la connexion",
+  "intro": "Démonstration du socle technique s-clair.",
+  "language": "Langue",
+  "load": "Lire la donnée",
+  "missing": "Tester une donnée absente",
+  "loading": "Chargement…",
+  "record": "Donnée enregistrée",
+  "idle": "Prêt à interroger la base.",
+  "demoRecordNotFound": "Donnée de démonstration introuvable.",
+  "databaseUnavailable": "La base de données est temporairement indisponible.",
+  "validationError": "La demande est invalide.",
+  "unexpectedError": "Une erreur est survenue. Réessaie dans un instant.",
+  "footer": "Démonstration locale · Aucune donnée élève"
+}
