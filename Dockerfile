@@ -3,6 +3,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends openssl ca-cert
 RUN npm install --global pnpm@12.10.1
 WORKDIR /workspace
 ENV PNPM_STORE_DIR=/workspace/.pnpm-store
+# Les UID de l'hôte (dont celui de la CI) n'ont pas forcément de compte dans l'image.
+ENV XDG_CACHE_HOME=/tmp/s-clair-cache
 
 FROM tools AS dependencies
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
