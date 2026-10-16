@@ -9,6 +9,7 @@ const mime = {
   '.json': 'application/json',
   '.svg': 'image/svg+xml',
   '.ico': 'image/x-icon',
+  '.png': 'image/png',
 };
 createServer((incoming, response) => {
   if (incoming.url?.startsWith('/api/')) {
