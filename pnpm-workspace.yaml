@@ -1,0 +1,16 @@
+packages:
+  - apps/*
+  - tools/*
+minimumReleaseAge: 1440
+storeDir: .pnpm-store
+allowBuilds:
+  '@nestjs/core': false
+  '@parcel/watcher': true
+  '@prisma/engines': true
+  '@scarf/scarf': false
+  '@swc/core': true
+  esbuild: true
+  lmdb: true
+  msgpackr-extract: true
+  prisma: true
+verifyDepsBeforeRun: false

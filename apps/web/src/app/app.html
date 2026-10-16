@@ -1,0 +1,49 @@
+<header>
+  <span class="brand">s-clair<span class="dot">.</span></span>
+  <nav [attr.aria-label]="'language' | translate">
+    <button
+      type="button"
+      (click)="language.select('fr')"
+      [attr.aria-pressed]="language.current() === 'fr'"
+      lang="fr"
+    >
+      Français
+    </button>
+    <button
+      type="button"
+      (click)="language.select('en')"
+      [attr.aria-pressed]="language.current() === 'en'"
+      lang="en"
+    >
+      English
+    </button>
+  </nav>
+</header>
+<main>
+  <p class="eyebrow">ANGULAR · NESTJS · POSTGRESQL</p>
+  <h1>{{ 'title' | translate }}</h1>
+  <p class="intro">{{ 'intro' | translate }}</p>
+  <section [attr.aria-label]="'record' | translate">
+    <div class="actions">
+      <button type="button" class="primary" [disabled]="isLoading()" (click)="load()">
+        {{ 'load' | translate }}
+      </button>
+      <button type="button" [disabled]="isLoading()" (click)="load(true)">
+        {{ 'missing' | translate }}
+      </button>
+    </div>
+    <div class="result" aria-live="polite" [attr.aria-busy]="isLoading()">
+      @if (isLoading()) {
+      <p>{{ 'loading' | translate }}</p>
+      } @else if (error(); as key) {
+      <p class="error" role="alert">{{ key | translate }}</p>
+      } @else if (record(); as row) {
+      <p class="caption">{{ 'record' | translate }}</p>
+      <p class="value">{{ row.label }}</p>
+      <code>{{ row.id }}</code> } @else {
+      <p class="idle">{{ 'idle' | translate }}</p>
+      }
+    </div>
+  </section>
+</main>
+<footer>{{ 'footer' | translate }}</footer>

@@ -26,3 +26,9 @@ dist/
 coverage/
 playwright-report/
 test-results/
+
+# Artefacts du socle technique.
+.pnpm-store/
+.angular/
+/apps/api/src/generated/
+*.tsbuildinfo

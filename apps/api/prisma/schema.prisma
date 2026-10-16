@@ -1,0 +1,16 @@
+generator client {
+  provider = "prisma-client"
+  output = "../src/generated/prisma"
+  moduleFormat = "esm"
+  importFileExtension = "js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model DemoRecord {
+  id String @id @db.Uuid
+  label String @db.VarChar(120)
+  @@map("demo_records")
+}

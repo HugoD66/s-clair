@@ -1,0 +1,14 @@
+node_modules
+.pnpm-store
+dist
+coverage
+playwright-report
+test-results
+.angular
+apps/api/src/generated
+apps/web/src/app/api-types.ts
+contracts/openapi.json
+pnpm-lock.yaml
+docs
+AGENTS.md
+a-eclairsir.txt

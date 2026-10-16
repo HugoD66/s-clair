@@ -1,0 +1,35 @@
+{
+  "name": "s-clair",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.10.1",
+  "engines": {
+    "node": "24.21.0",
+    "pnpm": "12.10.1"
+  },
+  "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "pnpm --filter @s-clair/api typecheck && pnpm --filter @s-clair/web typecheck && tsc --noEmit",
+    "test:unit": "pnpm --filter @s-clair/api test:unit && pnpm --filter @s-clair/web test:unit",
+    "test:integration": "pnpm --filter @s-clair/api test:integration",
+    "test:e2e": "playwright test",
+    "build": "pnpm --filter @s-clair/api build && pnpm --filter @s-clair/web build",
+    "contract:generate": "pnpm --filter @s-clair/api contract:export && pnpm --filter @s-clair/contracts generate",
+    "contract:check": "node scripts/check-contract.mjs",
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test:unit && pnpm contract:check && pnpm build"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "eslint": "10.12.0",
+    "eslint-config-prettier": "10.1.8",
+    "typescript-eslint": "8.71.1",
+    "angular-eslint": "22.5.0",
+    "prettier": "3.9.9",
+    "typescript": "6.0.3",
+    "@playwright/test": "1.64.0",
+    "@types/node": "24.10.1",
+    "globals": "17.13.0"
+  }
+}
