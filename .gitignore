@@ -3,6 +3,9 @@
 /docs/
 /a-eclairsir.txt
 /questions*.docx
+/.~lock.questions*.docx#
+/s-clair-codex-design-pack.zip
+/INSTALLATION.md
 
 # Configuration locale des éditeurs et agents.
 .idea/

@@ -20,7 +20,7 @@ export function describeProblem(error: unknown): { status: number; code: string;
       typeof payload === 'object' &&
       'code' in payload &&
       typeof payload.code === 'string' &&
-      payload.code in messages
+      Object.hasOwn(messages, payload.code)
     )
       code = payload.code;
     else if (status === 400) code = 'validationError';
