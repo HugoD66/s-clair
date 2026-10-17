@@ -21,4 +21,14 @@ describe('public errors', () => {
       detail: 'An unexpected error occurred.',
     });
   });
+  it.each(['constructor', 'toString', '__proto__', 'unknownCode'])(
+    'rejects the unregistered error key %s',
+    (code) => {
+      expect(describeProblem(new BadRequestException({ code }))).toEqual({
+        status: 400,
+        code: 'validationError',
+        detail: 'Invalid request.',
+      });
+    },
+  );
 });

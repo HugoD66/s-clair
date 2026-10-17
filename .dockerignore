@@ -9,15 +9,8 @@
 !contracts/**
 !docker/
 !docker/**
-**/node_modules
-**/dist
-**/generated
-**/.angular
-**/.env*
-**/*.log
 !tools/
 !tools/**
-**/node_modules
 !scripts/
 !scripts/**
 !tests/
@@ -27,3 +20,14 @@
 !eslint.config.mjs
 !.prettierrc.json
 !.prettierignore
+
+# Exclusions finales : aucune réinclusion de sources ne doit les annuler.
+**/node_modules
+**/dist
+**/generated
+**/.angular
+**/.env*
+**/*.log
+**/coverage
+**/test-results
+**/playwright-report
