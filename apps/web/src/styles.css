@@ -1,9 +1,26 @@
+@import './styles/tokens.css';
+@import './styles/foundations.css';
+
 * {
   box-sizing: border-box;
 }
+html {
+  color-scheme: dark;
+}
 body {
   margin: 0;
-  background: #f7f9fc;
-  color: #1c2939;
-  font-family: system-ui, sans-serif;
+  background: var(--sc-color-canvas);
+  color: var(--sc-color-text);
+  font-family: var(--sc-font-family);
+  font-size: var(--sc-font-size-body);
+  line-height: var(--sc-line-height-body);
+}
+:focus-visible {
+  outline: var(--sc-focus-width) solid var(--sc-color-focus);
+  outline-offset: var(--sc-focus-offset);
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
