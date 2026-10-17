@@ -1,4 +1,4 @@
-# s-clair
+# S-Clair
 
 Application web d’entraînement à la caisse claire. Ce premier lot fournit le
 socle technique local ; le parcours musical sera développé dans un lot suivant.

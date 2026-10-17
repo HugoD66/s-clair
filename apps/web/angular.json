@@ -18,6 +18,13 @@
             "tsConfig": "tsconfig.app.json",
             "index": "src/index.html",
             "outputPath": "dist/web",
+            "assets": [
+              {
+                "glob": "onglet_image.png",
+                "input": "assets/images",
+                "output": "assets/images"
+              }
+            ],
             "styles": ["src/styles.css"]
           },
           "configurations": {
