@@ -11,5 +11,6 @@
   "databaseUnavailable": "La base de données est temporairement indisponible.",
   "validationError": "La demande est invalide.",
   "unexpectedError": "Une erreur est survenue. Réessaie dans un instant.",
-  "footer": "Démonstration locale · Aucune donnée élève"
+  "footer": "Démonstration locale · Aucune donnée élève",
+  "skipToContent": "Aller au contenu"
 }

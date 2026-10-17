@@ -1,0 +1,73 @@
+.sc-button {
+  min-height: var(--sc-control-min-height);
+  padding: var(--sc-control-padding-block) var(--sc-space-22);
+  border: var(--sc-border-width) solid var(--sc-color-border-control);
+  border-radius: var(--sc-radius-control);
+  background: var(--sc-color-surface-raised);
+  color: var(--sc-color-text);
+  font: inherit;
+  font-weight: var(--sc-font-weight-emphasis);
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+.sc-button:hover:not(:disabled) {
+  background: var(--sc-color-action-secondary-hover);
+}
+.sc-button:active:not(:disabled) {
+  background: var(--sc-color-action-secondary-pressed);
+}
+.sc-button--primary {
+  border-color: var(--sc-color-accent);
+  background: var(--sc-color-accent);
+  color: var(--sc-color-on-accent);
+}
+.sc-button--primary:hover:not(:disabled) {
+  border-color: var(--sc-color-action-primary-hover);
+  background: var(--sc-color-action-primary-hover);
+}
+.sc-button--primary:active:not(:disabled) {
+  border-color: var(--sc-color-action-primary-pressed);
+  background: var(--sc-color-action-primary-pressed);
+}
+.sc-button:disabled {
+  border-color: var(--sc-color-border-control);
+  border-style: dashed;
+  background: var(--sc-color-surface);
+  color: var(--sc-color-text-muted);
+  cursor: default;
+}
+.sc-panel {
+  padding: var(--sc-space-26) var(--sc-space-28);
+  border: var(--sc-border-width) solid var(--sc-color-border-subtle);
+  border-radius: var(--sc-radius-panel);
+  background: var(--sc-color-surface);
+}
+.sc-brand {
+  display: flex;
+  flex: 0 0 auto;
+  width: var(--sc-brand-width);
+  max-width: 100%;
+  padding: var(--sc-brand-padding-block) var(--sc-space-10);
+  border-radius: var(--sc-radius-brand);
+  background: var(--sc-color-brand-surface);
+}
+.sc-brand img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.sc-skip-link {
+  position: fixed;
+  z-index: 2;
+  top: var(--sc-space-16);
+  left: var(--sc-space-16);
+  max-width: calc(100% - 32px);
+  padding: var(--sc-space-12);
+  border-radius: var(--sc-radius-small);
+  background: var(--sc-color-surface-raised);
+  color: var(--sc-color-text);
+  transform: translateY(calc(-100% - 32px));
+}
+.sc-skip-link:focus {
+  transform: none;
+}

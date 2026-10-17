@@ -1,4 +1,43 @@
 import { expect, test } from '@playwright/test';
+test('shows the logo and supports keyboard navigation while a request is pending', async ({
+  page,
+}) => {
+  let releaseResponse!: () => void;
+  const responseReady = new Promise<void>((resolve) => {
+    releaseResponse = resolve;
+  });
+  await page.route('**/api/v1/demo-records/**', async (route) => {
+    await responseReady;
+    await route.fulfill({ status: 503, json: { code: 'databaseUnavailable' } });
+  });
+  try {
+    await page.goto('/');
+    const logo = page.getByRole('img', { name: 'S-Clair', exact: true });
+    await expect(logo).toBeVisible();
+    await expect
+      .poll(() => logo.evaluate((image: HTMLImageElement) => image.naturalWidth))
+      .toBeGreaterThan(0);
+    await page.keyboard.press('Tab');
+    await expect(page.getByRole('link', { name: 'Aller au contenu' })).toBeFocused();
+    await page.keyboard.press('Enter');
+    await expect(page.getByRole('main')).toBeFocused();
+    await page.keyboard.press('Tab');
+    const read = page.getByRole('button', { name: 'Lire la donnée', exact: true });
+    await expect(read).toBeFocused();
+    await page.keyboard.press('Enter');
+    await expect(read).toBeDisabled();
+    await expect(page.getByRole('button', { name: 'Tester une donnée absente' })).toBeDisabled();
+    await expect(page.getByText('Chargement…', { exact: true })).toBeVisible();
+    await page.getByRole('button', { name: 'English', exact: true }).click();
+    await expect(page.getByText('Loading…', { exact: true })).toBeVisible();
+    releaseResponse();
+    await expect(page.getByRole('alert')).toHaveText('The database is temporarily unavailable.');
+    await expect(page.getByRole('button', { name: 'Read the record', exact: true })).toBeEnabled();
+  } finally {
+    releaseResponse();
+    await page.unrouteAll({ behavior: 'wait' });
+  }
+});
 test('reads PostgreSQL and translates the same API error without reloading', async ({ page }) => {
   await page.goto('/');
   await expect(page.getByRole('heading', { name: 'Vérifier la connexion' })).toBeVisible();
