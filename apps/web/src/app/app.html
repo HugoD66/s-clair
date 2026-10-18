@@ -1,7 +1,16 @@
+<a class="sc-skip-link" href="#main">{{ 'skipToContent' | translate }}</a>
 <header>
-  <span class="brand">S-Clair<span class="dot">.</span></span>
+  <span class="sc-brand"
+    ><img
+      src="assets/images/logo-s-clair.png"
+      alt="S-Clair"
+      width="2172"
+      height="724"
+      fetchpriority="high"
+  /></span>
   <nav [attr.aria-label]="'language' | translate">
     <button
+      class="sc-button language-button"
       type="button"
       (click)="language.select('fr')"
       [attr.aria-pressed]="language.current() === 'fr'"
@@ -10,6 +19,7 @@
       Français
     </button>
     <button
+      class="sc-button language-button"
       type="button"
       (click)="language.select('en')"
       [attr.aria-pressed]="language.current() === 'en'"
@@ -19,16 +29,21 @@
     </button>
   </nav>
 </header>
-<main>
+<main id="main" tabindex="-1">
   <p class="eyebrow">ANGULAR · NESTJS · POSTGRESQL</p>
   <h1>{{ 'title' | translate }}</h1>
   <p class="intro">{{ 'intro' | translate }}</p>
-  <section [attr.aria-label]="'record' | translate">
+  <section class="sc-panel" [attr.aria-label]="'record' | translate">
     <div class="actions">
-      <button type="button" class="primary" [disabled]="isLoading()" (click)="load()">
+      <button
+        type="button"
+        class="sc-button sc-button--primary"
+        [disabled]="isLoading()"
+        (click)="load()"
+      >
         {{ 'load' | translate }}
       </button>
-      <button type="button" [disabled]="isLoading()" (click)="load(true)">
+      <button type="button" class="sc-button" [disabled]="isLoading()" (click)="load(true)">
         {{ 'missing' | translate }}
       </button>
     </div>

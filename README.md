@@ -10,6 +10,12 @@ de demander une donnée absente et affiche l’erreur en français ou en anglais
 Le choix de langue est mémorisé dans le navigateur. Aucun compte ni donnée élève
 n’est utilisé à cette étape.
 
+L’interface utilise le thème sombre Studio rythmique et le logo S-Clair. Les
+valeurs graphiques communes sont dans `apps/web/src/styles/tokens.css` ; les
+boutons, panneaux, signature et lien d’évitement partagent les styles de
+`apps/web/src/styles/foundations.css`. Les tailles de texte respectent la taille
+racine du navigateur. Les compositions propres à la page restent dans `app.css`.
+
 | Service Docker | Rôle                                      | Technologie                              |
 | -------------- | ----------------------------------------- | ---------------------------------------- |
 | `web`          | Interface responsive FR/EN                | Angular                                  |

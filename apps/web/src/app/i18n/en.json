@@ -11,5 +11,6 @@
   "databaseUnavailable": "The database is temporarily unavailable.",
   "validationError": "The request is invalid.",
   "unexpectedError": "Something went wrong. Please try again shortly.",
-  "footer": "Local demonstration · No student data"
+  "footer": "Local demonstration · No student data",
+  "skipToContent": "Skip to content"
 }

@@ -23,6 +23,11 @@
                 "glob": "onglet_image.png",
                 "input": "assets/images",
                 "output": "assets/images"
+              },
+              {
+                "glob": "logo-s-clair.png",
+                "input": "assets/images",
+                "output": "assets/images"
               }
             ],
             "styles": ["src/styles.css"]
