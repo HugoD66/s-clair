@@ -72,4 +72,15 @@
   --sc-header-min-height-tablet: 80px;
   --sc-text-measure: 70ch;
   --sc-feedback-min-height: 86px;
+  --sc-color-backdrop: #060d17cc;
+  --sc-font-size-beat-symbol: 1.875rem;
+  --sc-font-size-countdown: 2.5rem;
+  --sc-font-weight-current: 750;
+  --sc-current-width: 2px;
+  --sc-current-offset: 4px;
+  --sc-feedback-border-width: 3px;
+  --sc-shadow-dialog: 0 24px 80px #0006;
+  --sc-dialog-width: 560px;
+  --sc-beat-min-height: 152px;
+  --sc-beat-min-height-tablet: 144px;
 }

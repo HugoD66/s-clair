@@ -12,5 +12,69 @@
   "validationError": "La demande est invalide.",
   "unexpectedError": "Une erreur est survenue. Réessaie dans un instant.",
   "footer": "Démonstration locale · Aucune donnée élève",
-  "skipToContent": "Aller au contenu"
+  "skipToContent": "Aller au contenu",
+  "practice": {
+    "previewLink": "Voir l’aperçu de l’entraînement",
+    "reviewTitle": "Aperçu de l’entraînement",
+    "reviewNotice": "Simulation visuelle : aucun son, décompte automatique, mesure de frappe ou résultat enregistré. Choisis un état pour examiner l’écran.",
+    "reviewState": "État à examiner",
+    "backToDemo": "Retour à la démonstration",
+    "openInteractions": "Espace, début de séance active et reprise après confirmation restent proposés. Les boutons illustrent les transitions ; le décompte reste figé sur 3.",
+    "states": {
+      "ready": "Prêt",
+      "listening": "Écoute du modèle",
+      "countdown": "Décompte",
+      "playing": "Jeu en cours",
+      "exit": "Confirmation de sortie",
+      "audio-error": "Son indisponible"
+    },
+    "level": "Niveau 1 · Entraînement",
+    "leave": "Quitter",
+    "keyboard": "Clavier",
+    "path": "Écouter · Jouer · Faire le point",
+    "title": "Trouver la pulsation",
+    "intro": "Huit temps : cinq coups et trois silences.",
+    "keyboardOnly": "Entrée clavier uniquement",
+    "proposedKey": "Touche proposée : Espace",
+    "sequenceTitle": "La séquence",
+    "sequenceLabel": "Séquence de huit temps",
+    "beat": "Temps",
+    "hit": "Coup",
+    "rest": "Silence",
+    "now": "Maintenant",
+    "sequenceHint": "● Un coup · — Un silence. Le cadre et le mot « Maintenant » indiquent le temps courant.",
+    "feedback": {
+      "ready": {
+        "title": "Prêt à commencer",
+        "description": "Écoute le modèle, puis joue la même séquence."
+      },
+      "listening": {
+        "title": "Écoute du modèle",
+        "description": "Repère les coups et les silences."
+      },
+      "countdown": {
+        "title": "3",
+        "description": "Prépare-toi : quatre temps avant de jouer."
+      },
+      "playing": {
+        "title": "Coup correct",
+        "description": "Continue au rythme de la pulsation."
+      },
+      "audio-error": {
+        "title": "Le son est indisponible",
+        "description": "Vérifie la sortie audio, puis réessaie."
+      }
+    },
+    "listen": "Écouter le modèle",
+    "listenAgain": "Réécouter",
+    "start": "Commencer",
+    "countdownHint": "Le jeu commence à la fin du décompte.",
+    "retry": "Réessayer l’écoute",
+    "playingHint": "Un appui = un coup. Continue même après une erreur.",
+    "keyboardNotice": "Clavier physique nécessaire pour jouer, y compris sur tablette.",
+    "exitTitle": "Quitter l’entraînement ?",
+    "exitDescription": "Cette tentative sera interrompue et ne sera pas enregistrée.",
+    "continue": "Continuer",
+    "confirmLeave": "Quitter la séance"
+  }
 }

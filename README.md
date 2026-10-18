@@ -1,7 +1,8 @@
 # S-Clair
 
 Application web d’entraînement à la caisse claire. Ce premier lot fournit le
-socle technique local ; le parcours musical sera développé dans un lot suivant.
+socle technique local et un aperçu de l’interface d’entraînement ; le moteur
+musical sera développé dans un lot suivant.
 
 ## Ce que permet le socle
 
@@ -14,7 +15,8 @@ L’interface utilise le thème sombre Studio rythmique et le logo S-Clair. Les
 valeurs graphiques communes sont dans `apps/web/src/styles/tokens.css` ; les
 boutons, panneaux, signature et lien d’évitement partagent les styles de
 `apps/web/src/styles/foundations.css`. Les tailles de texte respectent la taille
-racine du navigateur. Les compositions propres à la page restent dans `app.css`.
+racine du navigateur. Les compositions restent dans les feuilles des composants
+de chaque fonctionnalité.
 
 | Service Docker | Rôle                                      | Technologie                              |
 | -------------- | ----------------------------------------- | ---------------------------------------- |
@@ -25,6 +27,26 @@ racine du navigateur. Les compositions propres à la page restent dans `app.css`
 TypeScript strict, workspace pnpm, CLI locaux ; le front et l’API se rechargent
 pendant le développement. Le [plan de développement](https://github.com/HugoD66/s-clair/issues/2)
 présente les lots suivants.
+
+## Aperçu de l’entraînement
+
+Ouvrir [l’aperçu Angular](http://localhost:4200/?preview=practice), également
+accessible depuis le bas de la démonstration SQL. Le bandeau de revue permet
+de choisir l’état et la langue : prêt, écoute, décompte, jeu, confirmation de
+sortie ou audio indisponible. L’écran présente les huit temps de l’exercice,
+le repère courant et les commandes, avec le style Studio rythmique.
+
+Il s’agit d’une simulation visuelle : aucun son, minuterie, saisie musicale,
+calcul de résultat ou sauvegarde. Le décompte reste à 3 ; le sélecteur permet
+d’examiner le jeu. Les transitions de la confirmation illustrent une proposition,
+à préciser avant le moteur. Les contrôles de revue sont séparés du bandeau
+d’entraînement et ne constituent pas la navigation finale du produit.
+
+Les composants résident dans `apps/web/src/app/features/practice` : présentation
+de l’écran et de la séquence, conteneur de revue et états explicitement typés.
+La démonstration SQL reste accessible à la racine et dans `features/demo-records`.
+Le paramètre `preview=practice` sélectionne uniquement ce support de revue ;
+aucun routeur ou nouvelle dépendance n’est ajouté.
 
 ## Démarrage local
 

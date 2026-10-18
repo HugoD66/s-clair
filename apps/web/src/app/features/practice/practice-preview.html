@@ -1,0 +1,41 @@
+<a class="sc-skip-link" href="#practice-main">{{ 'skipToContent' | translate }}</a>
+<aside class="review" [attr.aria-label]="'practice.reviewTitle' | translate">
+  <strong>{{ 'practice.reviewTitle' | translate }}</strong>
+  <p>{{ 'practice.reviewNotice' | translate }}</p>
+  <div class="review-controls">
+    <label for="practice-state">{{ 'practice.reviewState' | translate }}</label>
+    <select
+      id="practice-state"
+      #stateSelect
+      [value]="state()"
+      (change)="selectState(stateSelect.value)"
+    >
+      @for (item of states; track item) {
+      <option [value]="item">{{ ('practice.states.' + item) | translate }}</option>
+      }
+    </select>
+    <nav [attr.aria-label]="'language' | translate">
+      <button
+        class="sc-button"
+        type="button"
+        (click)="language.select('fr')"
+        [attr.aria-pressed]="language.current() === 'fr'"
+        lang="fr"
+      >
+        Français
+      </button>
+      <button
+        class="sc-button"
+        type="button"
+        (click)="language.select('en')"
+        [attr.aria-pressed]="language.current() === 'en'"
+        lang="en"
+      >
+        English
+      </button>
+    </nav>
+    <a href="/">{{ 'practice.backToDemo' | translate }}</a>
+  </div>
+  <p class="review-note">{{ 'practice.openInteractions' | translate }}</p>
+</aside>
+<sc-practice-screen [state]="state()" (action)="act($event)" />
