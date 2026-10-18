@@ -1,0 +1,94 @@
+<header>
+  <span class="sc-brand"
+    ><img
+      src="assets/images/logo-s-clair.png"
+      alt="S-Clair"
+      width="2172"
+      height="724"
+      fetchpriority="high"
+  /></span>
+  <span class="context">{{ 'practice.level' | translate }}</span>
+  @if (canLeave()) {
+  <button class="sc-button" type="button" (click)="action.emit('leave')">
+    {{ 'practice.leave' | translate }}
+  </button>
+  } @else {
+  <span class="context">{{ 'practice.keyboard' | translate }}</span>
+  }
+</header>
+<main id="practice-main" tabindex="-1">
+  <p class="eyebrow">{{ 'practice.path' | translate }}</p>
+  <h1 #title tabindex="-1">{{ 'practice.title' | translate }}</h1>
+  <p class="intro">{{ 'practice.intro' | translate }}</p>
+  <div class="meta">
+    <span>60 BPM</span><span>{{ 'practice.keyboardOnly' | translate }}</span
+    ><span>{{ 'practice.proposedKey' | translate }}</span>
+  </div>
+  <section class="sc-panel exercise" aria-labelledby="sequence-title">
+    <h2 id="sequence-title">{{ 'practice.sequenceTitle' | translate }}</h2>
+    <sc-practice-sequence [currentBeat]="currentBeat()" />
+    <p class="hint">{{ 'practice.sequenceHint' | translate }}</p>
+  </section>
+  <div
+    class="feedback"
+    [class.success]="playing()"
+    [class.audio-error]="state() === 'audio-error'"
+    [class.cue]="state() === 'listening' || state() === 'countdown'"
+    [class.countdown]="state() === 'countdown'"
+    [attr.role]="state() === 'audio-error' ? 'alert' : 'status'"
+    aria-atomic="true"
+  >
+    <strong>{{ ('practice.feedback.' + feedback() + '.title') | translate }}</strong>
+    <span>{{ ('practice.feedback.' + feedback() + '.description') | translate }}</span>
+  </div>
+  <div class="actions">
+    @switch (state()) { @case ('ready') {
+    <button class="sc-button sc-button--primary" type="button" (click)="action.emit('listen')">
+      {{ 'practice.listen' | translate }}
+    </button>
+    } @case ('listening') {
+    <button class="sc-button" type="button" (click)="action.emit('listen')">
+      {{ 'practice.listenAgain' | translate }}
+    </button>
+    <button class="sc-button sc-button--primary" type="button" (click)="action.emit('start')">
+      {{ 'practice.start' | translate }}
+    </button>
+    } @case ('countdown') {
+    <p>{{ 'practice.countdownHint' | translate }}</p>
+    } @case ('audio-error') {
+    <button class="sc-button sc-button--primary" type="button" (click)="action.emit('listen')">
+      {{ 'practice.retry' | translate }}
+    </button>
+    } @default {
+    <p>{{ 'practice.playingHint' | translate }}</p>
+    } }
+  </div>
+  <footer>{{ 'practice.keyboardNotice' | translate }}</footer>
+</main>
+<dialog
+  #exitDialog
+  aria-labelledby="exit-title"
+  aria-describedby="exit-description"
+  (cancel)="cancelExit($event)"
+>
+  <h2 id="exit-title">{{ 'practice.exitTitle' | translate }}</h2>
+  <p id="exit-description">{{ 'practice.exitDescription' | translate }}</p>
+  <div class="actions">
+    <button
+      class="sc-button sc-button--primary"
+      type="button"
+      (click)="action.emit('continue')"
+      (keydown)="keepDialogFocus($event)"
+    >
+      {{ 'practice.continue' | translate }}
+    </button>
+    <button
+      class="sc-button"
+      type="button"
+      (click)="action.emit('confirm-leave')"
+      (keydown)="keepDialogFocus($event)"
+    >
+      {{ 'practice.confirmLeave' | translate }}
+    </button>
+  </div>
+</dialog>

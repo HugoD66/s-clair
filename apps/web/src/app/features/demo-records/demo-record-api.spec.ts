@@ -15,8 +15,21 @@ describe('error translations', () => {
     }
   });
   it('keeps both catalogues complete', () => {
-    expect(Object.keys(fr).sort()).toEqual(Object.keys(en).sort());
-    for (const value of [...Object.values(fr), ...Object.values(en)])
+    type Catalogue = { [key: string]: string | Catalogue };
+    function leaves(catalogue: Catalogue, prefix = ''): Record<string, string> {
+      return Object.fromEntries(
+        Object.entries(catalogue).flatMap(([key, value]) => {
+          const path = `${prefix}${key}`;
+          return typeof value === 'string'
+            ? [[path, value]]
+            : Object.entries(leaves(value, `${path}.`));
+        }),
+      );
+    }
+    const french = leaves(fr);
+    const english = leaves(en);
+    expect(Object.keys(french).sort()).toEqual(Object.keys(english).sort());
+    for (const value of [...Object.values(french), ...Object.values(english)])
       expect(value.trim()).not.toBe('');
   });
 });

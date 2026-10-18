@@ -12,5 +12,69 @@
   "validationError": "The request is invalid.",
   "unexpectedError": "Something went wrong. Please try again shortly.",
   "footer": "Local demonstration · No student data",
-  "skipToContent": "Skip to content"
+  "skipToContent": "Skip to content",
+  "practice": {
+    "previewLink": "View the practice preview",
+    "reviewTitle": "Practice preview",
+    "reviewNotice": "Visual simulation: no sound, automatic count-in, hit measurement or saved results. Choose a state to inspect the screen.",
+    "reviewState": "State to inspect",
+    "backToDemo": "Back to the demonstration",
+    "openInteractions": "Space, the start of an active session and resuming after confirmation remain proposals. Buttons illustrate transitions; the count-in stays at 3.",
+    "states": {
+      "ready": "Ready",
+      "listening": "Listening to the model",
+      "countdown": "Count-in",
+      "playing": "Playing",
+      "exit": "Exit confirmation",
+      "audio-error": "Sound unavailable"
+    },
+    "level": "Level 1 · Practice",
+    "leave": "Leave",
+    "keyboard": "Keyboard",
+    "path": "Listen · Play · Review",
+    "title": "Find the pulse",
+    "intro": "Eight beats: five hits and three rests.",
+    "keyboardOnly": "Keyboard input only",
+    "proposedKey": "Proposed key: Space",
+    "sequenceTitle": "The sequence",
+    "sequenceLabel": "Eight-beat sequence",
+    "beat": "Beat",
+    "hit": "Hit",
+    "rest": "Rest",
+    "now": "Now",
+    "sequenceHint": "● One hit · — One rest. The outline and “Now” label mark the current beat.",
+    "feedback": {
+      "ready": {
+        "title": "Ready to start",
+        "description": "Listen to the model, then play the same sequence."
+      },
+      "listening": {
+        "title": "Listening to the model",
+        "description": "Notice the hits and rests."
+      },
+      "countdown": {
+        "title": "3",
+        "description": "Get ready: four count-in beats before playing."
+      },
+      "playing": {
+        "title": "Correct hit",
+        "description": "Keep going with the pulse."
+      },
+      "audio-error": {
+        "title": "Sound is unavailable",
+        "description": "Check the audio output, then try again."
+      }
+    },
+    "listen": "Listen to the model",
+    "listenAgain": "Listen again",
+    "start": "Start",
+    "countdownHint": "Play begins after the count-in.",
+    "retry": "Try listening again",
+    "playingHint": "One key press = one hit. Keep going after a mistake.",
+    "keyboardNotice": "A physical keyboard is required to play, including on a tablet.",
+    "exitTitle": "Leave practice?",
+    "exitDescription": "This attempt will be interrupted and will not be saved.",
+    "continue": "Continue",
+    "confirmLeave": "Leave the session"
+  }
 }

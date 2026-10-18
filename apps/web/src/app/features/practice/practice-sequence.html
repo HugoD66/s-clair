@@ -1,0 +1,15 @@
+<ol class="sequence" [attr.aria-label]="'practice.sequenceLabel' | translate">
+  @for (hit of beats; track $index) {
+  <li
+    class="beat"
+    [class.rest]="!hit"
+    [class.current]="currentBeat() === $index"
+    [attr.aria-current]="currentBeat() === $index ? 'step' : null"
+  >
+    <small>{{ 'practice.beat' | translate }} {{ $index + 1 }}</small>
+    <strong aria-hidden="true">{{ hit ? '●' : '—' }}</strong>
+    <span>{{ (hit ? 'practice.hit' : 'practice.rest') | translate }}</span>
+    @if (currentBeat() === $index) { <small class="now">{{ 'practice.now' | translate }}</small> }
+  </li>
+  }
+</ol>

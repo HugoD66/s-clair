@@ -134,3 +134,10 @@ footer {
     width: 100%;
   }
 }
+
+.preview-link {
+  color: var(--sc-color-accent);
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--sc-control-min-height);
+}

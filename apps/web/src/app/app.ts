@@ -1,40 +1,20 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { finalize } from 'rxjs';
-import { TranslatePipe } from '@ngx-translate/core';
-import { DemoRecordApi, errorKey } from './features/demo-records/demo-record-api';
-import type { DemoRecord } from './features/demo-records/demo-record-api';
-import { LanguageService } from './i18n/language.service';
+import { DOCUMENT } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { DemoPage } from './features/demo-records/demo-page';
+import { PracticePreview } from './features/practice/practice-preview';
+
 @Component({
   selector: 'sc-root',
-  imports: [TranslatePipe],
-  templateUrl: './app.html',
-  styleUrl: './app.css',
+  imports: [DemoPage, PracticePreview],
+  template: `@if (practicePreview) {
+      <sc-practice-preview />
+    } @else {
+      <sc-demo-page />
+    }`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
-  readonly language = inject(LanguageService);
-  private readonly api = inject(DemoRecordApi);
-  private readonly destroyRef = inject(DestroyRef);
-  readonly record = signal<DemoRecord | null>(null);
-  readonly error = signal<string | null>(null);
-  readonly isLoading = signal(false);
-  load(missing = false): void {
-    this.isLoading.set(true);
-    this.error.set(null);
-    this.record.set(null);
-    const id = missing
-      ? '00000000-0000-4000-8000-000000000002'
-      : '00000000-0000-4000-8000-000000000001';
-    this.api
-      .read(id)
-      .pipe(
-        takeUntilDestroyed(this.destroyRef),
-        finalize(() => this.isLoading.set(false)),
-      )
-      .subscribe({
-        next: (record) => this.record.set(record),
-        error: (error: unknown) => this.error.set(errorKey(error)),
-      });
-  }
+  // A review entry point, not product routing or a playable session.
+  readonly practicePreview =
+    new URLSearchParams(inject(DOCUMENT).location?.search ?? '').get('preview') === 'practice';
 }
