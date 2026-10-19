@@ -63,6 +63,34 @@
       "audio-error": {
         "title": "Le son est indisponible",
         "description": "Vérifie la sortie audio, puis réessaie."
+      },
+      "loading": {
+        "title": "Préparation du son…",
+        "description": "L’écoute va démarrer. Vérifie que le volume est audible."
+      },
+      "listened": {
+        "title": "À toi de jouer",
+        "description": "Commencer lance quatre temps de décompte, puis huit temps de jeu."
+      },
+      "play": {
+        "title": "Joue avec Espace",
+        "description": "Suis la pulsation et respecte les silences."
+      },
+      "correct": {
+        "title": "Coup correct",
+        "description": "Continue au rythme de la pulsation."
+      },
+      "missed": {
+        "title": "Coup manqué",
+        "description": "Continue : le prochain temps arrive."
+      },
+      "extra": {
+        "title": "Coup supplémentaire",
+        "description": "Suis la pulsation et respecte les silences."
+      },
+      "paused": {
+        "title": "Tentative en pause",
+        "description": "Choisis de continuer ou de quitter la séance."
       }
     },
     "listen": "Écouter le modèle",
@@ -75,6 +103,19 @@
     "exitTitle": "Quitter l’entraînement ?",
     "exitDescription": "Cette tentative sera interrompue et ne sera pas enregistrée.",
     "continue": "Continuer",
-    "confirmLeave": "Quitter la séance"
+    "confirmLeave": "Quitter la séance",
+    "results": {
+      "title": "Ton bilan",
+      "complete": "Tu as joué les cinq coups attendus et respecté les silences.",
+      "encouragement": "Observe ton bilan, puis réécoute ou rejoue à ton rythme.",
+      "correct": "Frappes correctes",
+      "missed": "Frappes manquées",
+      "extra": "Frappes supplémentaires",
+      "replay": "Rejouer",
+      "local": "Premier exercice local, sans compte ni historique de séances."
+    },
+    "playLink": "Jouer le premier exercice",
+    "key": "Touche : Espace",
+    "resumeNotice": "La tentative est en pause. Continuer relance quatre temps de décompte, puis reprend au même endroit."
   }
 }

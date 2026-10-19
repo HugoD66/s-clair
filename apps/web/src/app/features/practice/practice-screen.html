@@ -16,54 +16,109 @@
   <span class="context">{{ 'practice.keyboard' | translate }}</span>
   }
 </header>
-<main id="practice-main" tabindex="-1">
+<main id="practice-main" tabindex="-1" [attr.data-phase]="state()">
   <p class="eyebrow">{{ 'practice.path' | translate }}</p>
-  <h1 #title tabindex="-1">{{ 'practice.title' | translate }}</h1>
+  <h1 #title tabindex="-1">
+    {{ (state() === 'result' ? 'practice.results.title' : 'practice.title') | translate }}
+  </h1>
+  @if (session()?.result; as result) {
+  <sc-practice-result [result]="result" />
+  } @else {
   <p class="intro">{{ 'practice.intro' | translate }}</p>
   <div class="meta">
-    <span>60 BPM</span><span>{{ 'practice.keyboardOnly' | translate }}</span
-    ><span>{{ 'practice.proposedKey' | translate }}</span>
+    <span>60 BPM</span><span>{{ 'practice.keyboardOnly' | translate }}</span>
+    <span>{{ (session() ? 'practice.key' : 'practice.proposedKey') | translate }}</span>
   </div>
+  }
   <section class="sc-panel exercise" aria-labelledby="sequence-title">
     <h2 id="sequence-title">{{ 'practice.sequenceTitle' | translate }}</h2>
     <sc-practice-sequence [currentBeat]="currentBeat()" />
     <p class="hint">{{ 'practice.sequenceHint' | translate }}</p>
   </section>
+  @if (state() !== 'result') {
   <div
     class="feedback"
-    [class.success]="playing()"
-    [class.audio-error]="state() === 'audio-error'"
+    [class.success]="session() ? feedback() === 'correct' : playing()"
+    [class.audio-error]="state() === 'audio-error' || feedback() === 'missed' || feedback() === 'extra'"
     [class.cue]="state() === 'listening' || state() === 'countdown'"
     [class.countdown]="state() === 'countdown'"
     [attr.role]="state() === 'audio-error' ? 'alert' : 'status'"
+    [attr.aria-live]="state() === 'countdown' || state() === 'playing' ? 'off' : null"
     aria-atomic="true"
   >
+    @if (session() && state() === 'countdown') {
+    <strong>{{ session()!.countdown }}</strong>
+    } @else {
     <strong>{{ ('practice.feedback.' + feedback() + '.title') | translate }}</strong>
+    }
     <span>{{ ('practice.feedback.' + feedback() + '.description') | translate }}</span>
   </div>
+  }
   <div class="actions">
-    @switch (state()) { @case ('ready') {
+    @switch (state()) { @case ('ready') { @if (session()?.listened) {
+    <button class="sc-button sc-button--primary" type="button" (click)="action.emit('start')">
+      {{ 'practice.start' | translate }}
+    </button>
+    <button class="sc-button" type="button" (click)="action.emit('listen')">
+      {{ 'practice.listenAgain' | translate }}
+    </button>
+    } @else {
     <button class="sc-button sc-button--primary" type="button" (click)="action.emit('listen')">
       {{ 'practice.listen' | translate }}
     </button>
-    } @case ('listening') {
+    } } @case ('listening') { @if (!session()) {
     <button class="sc-button" type="button" (click)="action.emit('listen')">
       {{ 'practice.listenAgain' | translate }}
     </button>
     <button class="sc-button sc-button--primary" type="button" (click)="action.emit('start')">
       {{ 'practice.start' | translate }}
     </button>
-    } @case ('countdown') {
+    } } @case ('countdown') {
     <p>{{ 'practice.countdownHint' | translate }}</p>
     } @case ('audio-error') {
     <button class="sc-button sc-button--primary" type="button" (click)="action.emit('listen')">
       {{ 'practice.retry' | translate }}
     </button>
-    } @default {
+    } @case ('result') {
+    <button class="sc-button sc-button--primary" type="button" (click)="action.emit('replay')">
+      {{ 'practice.results.replay' | translate }}
+    </button>
+    <button class="sc-button" type="button" (click)="action.emit('listen')">
+      {{ 'practice.listenAgain' | translate }}
+    </button>
+    } @case ('loading') { } @default {
     <p>{{ 'practice.playingHint' | translate }}</p>
     } }
   </div>
-  <footer>{{ 'practice.keyboardNotice' | translate }}</footer>
+  <footer>
+    <p>
+      {{ (state() === 'result' ? 'practice.results.local' : 'practice.keyboardNotice') | translate
+      }}
+    </p>
+    @if (session()) {
+    <nav [attr.aria-label]="'language' | translate">
+      <button
+        class="sc-button"
+        type="button"
+        (click)="language.select('fr')"
+        [attr.aria-pressed]="language.current() === 'fr'"
+        lang="fr"
+      >
+        Français
+      </button>
+      <button
+        class="sc-button"
+        type="button"
+        (click)="language.select('en')"
+        [attr.aria-pressed]="language.current() === 'en'"
+        lang="en"
+      >
+        English
+      </button>
+      <a href="/">{{ 'practice.backToDemo' | translate }}</a>
+    </nav>
+    }
+  </footer>
 </main>
 <dialog
   #exitDialog
@@ -73,6 +128,9 @@
 >
   <h2 id="exit-title">{{ 'practice.exitTitle' | translate }}</h2>
   <p id="exit-description">{{ 'practice.exitDescription' | translate }}</p>
+  @if (session()) {
+  <p>{{ 'practice.resumeNotice' | translate }}</p>
+  }
   <div class="actions">
     <button
       class="sc-button sc-button--primary"
