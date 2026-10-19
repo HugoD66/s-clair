@@ -36,6 +36,7 @@
     </nav>
     <a href="/">{{ 'practice.backToDemo' | translate }}</a>
   </div>
+  <p><a href="?practice=1">{{ 'practice.playLink' | translate }}</a></p>
   <p class="review-note">{{ 'practice.openInteractions' | translate }}</p>
 </aside>
-<sc-practice-screen [state]="state()" (action)="act($event)" />
+<sc-practice-screen [previewState]="state()" (action)="act($event)" />

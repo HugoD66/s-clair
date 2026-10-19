@@ -8,8 +8,8 @@ test('opens the visual practice preview and preserves its state when translating
     if (request.url().includes('/api/v1/demo-records/')) apiRequests.push(request.url());
   });
   await page.goto('/');
-  await page.getByRole('link', { name: 'Voir l’aperçu de l’entraînement' }).click();
-  await expect(page).toHaveURL(/\?preview=practice$/);
+  await page.goto('/?preview=practice-states');
+  await expect(page).toHaveURL(/\?preview=practice-states$/);
   await expect(page.getByRole('heading', { name: 'Trouver la pulsation' })).toBeVisible();
   await expect(page.getByText(/Simulation visuelle : aucun son/)).toBeVisible();
   const sequence = page.getByRole('list', { name: 'Séquence de huit temps' });
@@ -37,7 +37,7 @@ test('opens the visual practice preview and preserves its state when translating
 test('confines modal focus and restores the preview after cancel or confirmed exit', async ({
   page,
 }) => {
-  await page.goto('/?preview=practice');
+  await page.goto('/?preview=practice-states');
   const state = page.getByLabel('État à examiner');
   for (const value of ['countdown', 'playing']) {
     await state.selectOption(value);
@@ -73,7 +73,7 @@ test('confines modal focus and restores the preview after cancel or confirmed ex
 test('keeps the eight beats readable across reference viewports and languages', async ({
   page,
 }) => {
-  await page.goto('/?preview=practice');
+  await page.goto('/?preview=practice-states');
   for (const [width, height] of [
     [1440, 900],
     [1280, 800],

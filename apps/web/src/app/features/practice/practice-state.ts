@@ -7,4 +7,4 @@ export const practiceStates = [
   'audio-error',
 ] as const;
 export type PracticeState = (typeof practiceStates)[number];
-export type PracticeAction = 'listen' | 'start' | 'leave' | 'continue' | 'confirm-leave';
+export type PracticeAction = 'listen' | 'start' | 'leave' | 'continue' | 'confirm-leave' | 'replay';

@@ -184,3 +184,14 @@ dialog .actions {
     padding: var(--sc-space-24);
   }
 }
+footer nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--sc-space-14);
+}
+footer button[aria-pressed='true'] {
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+  border-color: var(--sc-color-accent);
+}

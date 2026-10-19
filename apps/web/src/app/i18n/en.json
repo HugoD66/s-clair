@@ -63,6 +63,34 @@
       "audio-error": {
         "title": "Sound is unavailable",
         "description": "Check the audio output, then try again."
+      },
+      "loading": {
+        "title": "Preparing sound…",
+        "description": "The model will start shortly. Make sure the volume is audible."
+      },
+      "listened": {
+        "title": "Your turn",
+        "description": "Start gives you a four-beat count-in, followed by eight beats of playing."
+      },
+      "play": {
+        "title": "Play with Space",
+        "description": "Follow the pulse and observe the rests."
+      },
+      "correct": {
+        "title": "Correct hit",
+        "description": "Keep following the pulse."
+      },
+      "missed": {
+        "title": "Missed hit",
+        "description": "Keep going: the next beat is coming."
+      },
+      "extra": {
+        "title": "Extra hit",
+        "description": "Follow the pulse and observe the rests."
+      },
+      "paused": {
+        "title": "Attempt paused",
+        "description": "Choose to continue or leave the session."
       }
     },
     "listen": "Listen to the model",
@@ -75,6 +103,19 @@
     "exitTitle": "Leave practice?",
     "exitDescription": "This attempt will be interrupted and will not be saved.",
     "continue": "Continue",
-    "confirmLeave": "Leave the session"
+    "confirmLeave": "Leave the session",
+    "results": {
+      "title": "Your results",
+      "complete": "You played all five expected hits and observed the rests.",
+      "encouragement": "Review your results, then listen or play again when you are ready.",
+      "correct": "Correct hits",
+      "missed": "Missed hits",
+      "extra": "Extra hits",
+      "replay": "Play again",
+      "local": "First local exercise, without an account or session history."
+    },
+    "playLink": "Play the first exercise",
+    "key": "Key: Space",
+    "resumeNotice": "The attempt is paused. Continue starts a four-beat count-in, then resumes at the same position."
   }
 }

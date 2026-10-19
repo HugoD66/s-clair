@@ -1,8 +1,7 @@
 # S-Clair
 
-Application web d’entraînement à la caisse claire. Ce premier lot fournit le
-socle technique local et un aperçu de l’interface d’entraînement ; le moteur
-musical sera développé dans un lot suivant.
+Application web d’entraînement à la caisse claire. Le socle Docker comprend
+un premier exercice jouable au clavier, avec écoute et bilan local FR/EN.
 
 ## Ce que permet le socle
 
@@ -28,25 +27,43 @@ TypeScript strict, workspace pnpm, CLI locaux ; le front et l’API se rechargen
 pendant le développement. Le [plan de développement](https://github.com/HugoD66/s-clair/issues/2)
 présente les lots suivants.
 
-## Aperçu de l’entraînement
+## Premier exercice jouable
 
-Ouvrir [l’aperçu Angular](http://localhost:4200/?preview=practice), également
-accessible depuis le bas de la démonstration SQL. Le bandeau de revue permet
-de choisir l’état et la langue : prêt, écoute, décompte, jeu, confirmation de
-sortie ou audio indisponible. L’écran présente les huit temps de l’exercice,
-le repère courant et les commandes, avec le style Studio rythmique.
+Ouvrir [l’entraînement](http://localhost:4200/?practice=1), accessible depuis
+la démonstration SQL. L’ancien lien `?preview=practice` ouvre aussi ce parcours.
 
-Il s’agit d’une simulation visuelle : aucun son, minuterie, saisie musicale,
-calcul de résultat ou sauvegarde. Le décompte reste à 3 ; le sélecteur permet
-d’examiner le jeu. Les transitions de la confirmation illustrent une proposition,
-à préciser avant le moteur. Les contrôles de revue sont séparés du bandeau
-d’entraînement et ne constituent pas la navigation finale du produit.
+1. Cliquer **Écouter le modèle** : huit temps à 60 BPM, cinq coups et trois silences.
+2. Après l’écoute, cliquer **Commencer** : le décompte avance de 4 à 1.
+3. Appuyer sur **Espace** sur les coups et respecter les silences. Un appui maintenu
+   ne compte qu’une fois ; les boutons et champs conservent leur usage clavier.
+4. Consulter les frappes correctes, manquées et supplémentaires, puis **Rejouer**
+   ou **Réécouter**. Le jeu continue après une erreur ; aucun score global n’est ajouté.
 
-Les composants résident dans `apps/web/src/app/features/practice` : présentation
-de l’écran et de la séquence, conteneur de revue et états explicitement typés.
-La démonstration SQL reste accessible à la racine et dans `features/demo-records`.
-Le paramètre `preview=practice` sélectionne uniquement ce support de revue ;
-aucun routeur ou nouvelle dépendance n’est ajouté.
+La séquence est coup/coup/silence/coup/coup/silence/coup/silence. La tolérance de
+démonstration est ±150 ms, bornes incluses ; chaque frappe et chaque note ne peuvent
+être associées qu’une fois. Une frappe hors fenêtre peut laisser une note manquée
+et compter comme supplémentaire. Ce réglage reste à éprouver sur le matériel réel.
+Les sons sont synthétisés localement par Web Audio ; pas de microphone ni d’asset
+à télécharger. Pendant le jeu, seuls la pulsation et les coups du joueur sonnent.
+
+**Quitter** suspend la tentative et ouvre la confirmation. **Continuer** relance
+quatre temps, puis reprend à la position suspendue ; confirmer abandonne la tentative.
+Un onglet masqué suspend aussi la tentative. Rechargement, retour navigateur et
+fermeture utilisent la confirmation native quand le navigateur la permet ; sa
+présentation reste contrôlée par le navigateur. Aucune tentative ni aucun bilan
+n’est enregistré. Une perte audio interrompt le jeu avec une action de nouvel essai.
+
+Le calcul pur (`exercise.ts`), le déroulement (`practice-engine.ts`), l’audio
+(`practice-audio.ts`) et l’adaptation clavier/Angular (`practice-session.ts`) sont
+séparés dans `apps/web/src/app/features/practice`. Les composants de présentation
+restent partagés avec [la revue des états](http://localhost:4200/?preview=practice-states),
+qui est une simulation distincte. Aucun routeur, compte ou nouvelle dépendance
+n’est ajouté ; la démonstration SQL reste à la racine.
+
+Les tests couvrent les bornes du jugement, les doubles frappes, les silences,
+la fin de séquence, la pause/reprise, l’abandon, l’audio indisponible et le parcours
+clavier Chromium. L’écoute humaine, la latence du matériel, les lecteurs d’écran
+et les autres navigateurs restent à vérifier avant un essai pédagogique.
 
 ## Démarrage local
 
