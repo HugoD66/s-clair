@@ -76,12 +76,8 @@
         "title": "Joue avec Espace",
         "description": "Suis la pulsation et respecte les silences."
       },
-      "correct": {
-        "title": "Coup correct",
-        "description": "Continue au rythme de la pulsation."
-      },
       "missed": {
-        "title": "Coup manqué",
+        "title": "Raté",
         "description": "Continue : le prochain temps arrive."
       },
       "extra": {
@@ -91,6 +87,14 @@
       "paused": {
         "title": "Tentative en pause",
         "description": "Choisis de continuer ou de quitter la séance."
+      },
+      "perfect": {
+        "title": "Parfait !",
+        "description": "Continue au rythme de la pulsation."
+      },
+      "good": {
+        "title": "Bon !",
+        "description": "Rapproche-toi encore de la pulsation."
       }
     },
     "listen": "Écouter le modèle",
@@ -108,19 +112,21 @@
       "title": "Ton bilan",
       "complete": "Tu as joué les cinq coups attendus et respecté les silences.",
       "encouragement": "Observe ton bilan, puis réécoute ou rejoue à ton rythme.",
-      "correct": "Frappes correctes",
-      "missed": "Frappes manquées",
-      "extra": "Frappes supplémentaires",
+      "missed": "Ratés",
+      "extra": "Frappes en trop",
       "replay": "Rejouer",
-      "local": "Premier exercice local, sans compte ni historique de séances."
+      "local": "Premier exercice local, sans compte ni historique de séances.",
+      "perfect": "Parfaits",
+      "good": "Bons"
     },
     "playLink": "Jouer le premier exercice",
     "key": "Touche : Espace",
     "resumeNotice": "La tentative est en pause. Continuer relance quatre temps de décompte, puis reprend au même endroit.",
     "beatOutcome": {
-      "correct": "Réussi",
-      "missed": "Manqué",
-      "extra": "En trop"
+      "missed": "Raté",
+      "extra": "En trop",
+      "perfect": "Parfait",
+      "good": "Bon"
     }
   }
 }

@@ -15,15 +15,19 @@ import type { PracticeResult } from './exercise';
       }}
     </p>
     <dl>
-      <div class="sc-panel">
-        <dt>{{ 'practice.results.correct' | translate }}</dt>
-        <dd>{{ result().correct }}</dd>
+      <div class="sc-panel perfect">
+        <dt>{{ 'practice.results.perfect' | translate }}</dt>
+        <dd>{{ result().perfect }}</dd>
       </div>
-      <div class="sc-panel">
+      <div class="sc-panel good">
+        <dt>{{ 'practice.results.good' | translate }}</dt>
+        <dd>{{ result().good }}</dd>
+      </div>
+      <div class="sc-panel missed">
         <dt>{{ 'practice.results.missed' | translate }}</dt>
         <dd>{{ result().missed }}</dd>
       </div>
-      <div class="sc-panel">
+      <div class="sc-panel missed">
         <dt>{{ 'practice.results.extra' | translate }}</dt>
         <dd>{{ result().extra }}</dd>
       </div>
@@ -35,7 +39,7 @@ import type { PracticeResult } from './exercise';
     }
     dl {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: var(--sc-space-18);
       margin: var(--sc-space-26) 0;
     }
@@ -52,6 +56,20 @@ import type { PracticeResult } from './exercise';
       font-size: var(--sc-font-size-title);
       font-weight: var(--sc-font-weight-title);
       font-variant-numeric: tabular-nums;
+    }
+    .perfect dd {
+      color: var(--sc-color-feedback-success);
+    }
+    .good dd {
+      color: var(--sc-color-feedback-good);
+    }
+    .missed dd {
+      color: var(--sc-color-feedback-error);
+    }
+    @media (max-width: 60rem) {
+      dl {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
     @media (max-width: 37.5rem) {
       dl {

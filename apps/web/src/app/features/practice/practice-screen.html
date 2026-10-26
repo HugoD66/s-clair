@@ -38,7 +38,8 @@
   @if (state() !== 'result') {
   <div
     class="feedback"
-    [class.success]="session() ? feedback() === 'correct' : playing()"
+    [class.success]="session() ? feedback() === 'perfect' : playing()"
+    [class.good]="feedback() === 'good'"
     [class.audio-error]="state() === 'audio-error' || feedback() === 'missed' || feedback() === 'extra'"
     [class.cue]="state() === 'listening' || state() === 'countdown'"
     [class.countdown]="state() === 'countdown'"

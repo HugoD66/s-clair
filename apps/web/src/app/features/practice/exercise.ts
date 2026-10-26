@@ -3,6 +3,7 @@ export const firstExercise = {
   bpm: 60,
   countIn: 4,
   toleranceMs: 150,
+  perfectToleranceMs: 50,
   beats: [true, true, false, true, true, false, true, false],
 } as const;
 
@@ -10,17 +11,19 @@ export interface Exercise {
   readonly bpm: number;
   readonly countIn: number;
   readonly toleranceMs: number;
+  readonly perfectToleranceMs: number;
   readonly beats: readonly boolean[];
 }
 
 export interface PracticeResult {
-  readonly correct: number;
+  readonly perfect: number;
+  readonly good: number;
   readonly missed: number;
   readonly extra: number;
 }
 
 export interface BeatOutcome {
-  readonly judgement: 'correct' | 'missed' | null;
+  readonly judgement: 'perfect' | 'good' | 'missed' | null;
   readonly extra: boolean;
 }
 
@@ -51,7 +54,7 @@ export function evaluateDetails(
   const beats: { judgement: BeatOutcome['judgement']; extra: boolean }[] = exercise.beats.map(
     () => ({ judgement: null, extra: false }),
   );
-  const matched = new Set<number>();
+  const matched = new Map<number, 'perfect' | 'good'>();
   let extra = 0;
   for (const hit of [...hits].sort((a, b) => a - b)) {
     if (!Number.isFinite(hit) || hit > elapsedMs) continue;
@@ -64,16 +67,20 @@ export function evaluateDetails(
       const beat = beats[Math.min(beats.length - 1, Math.max(0, Math.floor(hit / interval)))];
       if (beat) beat.extra = true;
     } else {
-      matched.add(note);
+      matched.set(
+        note,
+        Math.abs(expected[note]!.time - hit) <= exercise.perfectToleranceMs ? 'perfect' : 'good',
+      );
     }
   }
   let missed = 0;
   expected.forEach(({ time, beat }, index) => {
-    if (matched.has(index)) beats[beat]!.judgement = 'correct';
+    if (matched.has(index)) beats[beat]!.judgement = matched.get(index)!;
     else if (elapsedMs > time + exercise.toleranceMs) {
       beats[beat]!.judgement = 'missed';
       missed++;
     }
   });
-  return { result: { correct: matched.size, missed, extra }, beats };
+  const perfect = [...matched.values()].filter((grade) => grade === 'perfect').length;
+  return { result: { perfect, good: matched.size - perfect, missed, extra }, beats };
 }

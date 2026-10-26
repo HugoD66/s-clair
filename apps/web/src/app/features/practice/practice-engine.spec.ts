@@ -82,11 +82,31 @@ describe('local practice session', () => {
     expect(engine.view()).toMatchObject({
       phase: 'result',
       active: false,
-      result: { correct: 5, missed: 0, extra: 0 },
+      result: { perfect: 4, good: 1, missed: 0, extra: 0 },
     });
     expect(engine.hit(audio.time)).toBe(false);
     engine.reset();
     expect(engine.view()).toMatchObject({ phase: 'ready', result: null, listened: true });
+  });
+  it('reports each grade immediately and preserves the same grades in the result', async () => {
+    const { audio, engine } = await ready();
+    engine.start();
+    audio.time = 12450;
+    engine.hit(audio.time);
+    expect(engine.view().feedback).toBe('perfect');
+    expect(engine.view().outcomes[0]?.judgement).toBe('perfect');
+    audio.time = 13550;
+    engine.hit(audio.time);
+    expect(engine.view().feedback).toBe('good');
+    expect(engine.view().outcomes[1]?.judgement).toBe('good');
+    audio.time = 15551;
+    engine.hit(audio.time);
+    expect(engine.view().outcomes[3]).toEqual({ judgement: 'missed', extra: true });
+    audio.time = 20400;
+    expect(engine.view().result).toEqual({ perfect: 1, good: 1, missed: 3, extra: 1 });
+    await engine.listen();
+    expect(engine.view().outcomes).toEqual([]);
+    expect(engine.view().result).toBeNull();
   });
   it('continues after errors and resets every count on replay', async () => {
     const { audio, engine } = await ready();
@@ -98,11 +118,11 @@ describe('local practice session', () => {
     engine.view();
     engine.hit(audio.time);
     audio.time = 20400;
-    expect(engine.view().result).toEqual({ correct: 1, missed: 4, extra: 2 });
+    expect(engine.view().result).toEqual({ perfect: 1, good: 0, missed: 4, extra: 2 });
     engine.reset();
     engine.start();
     audio.time = 32600;
-    expect(engine.view().result).toEqual({ correct: 0, missed: 5, extra: 0 });
+    expect(engine.view().result).toEqual({ perfect: 0, good: 0, missed: 5, extra: 0 });
   });
   it('freezes evaluation during exit and count-in, resuming at the exact musical offset', async () => {
     const { audio, engine } = await ready();
@@ -126,7 +146,7 @@ describe('local practice session', () => {
     audio.time = resumed + 1700;
     engine.hit(audio.time); // Original beat four.
     audio.time = resumed + 6700;
-    expect(engine.view().result).toEqual({ correct: 2, missed: 3, extra: 0 });
+    expect(engine.view().result).toEqual({ perfect: 2, good: 0, missed: 3, extra: 0 });
   });
   it('restarts a paused initial count-in and discards an abandoned attempt', async () => {
     const { audio, engine } = await ready();

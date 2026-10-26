@@ -93,32 +93,45 @@ span {
 .outcome span {
   font: inherit;
 }
-.beat.correct,
+.beat.perfect,
+.beat.good,
 .beat.failed {
   color: var(--sc-color-text);
 }
-.beat.correct small,
-.beat.correct strong,
+.beat.perfect small,
+.beat.perfect strong,
+.beat.good small,
+.beat.good strong,
 .beat.failed small,
 .beat.failed strong {
   color: inherit;
 }
-.beat.correct {
+.beat.perfect {
   background: var(--sc-color-beat-success);
   animation: beat-success-fade 650ms ease-out;
+}
+.beat.good {
+  background: var(--sc-color-beat-good);
+  animation: beat-good-fade 650ms ease-out;
 }
 .beat.failed {
   background: var(--sc-color-beat-error);
   animation: beat-error-fade 650ms ease-out;
 }
-.beat.correct:not(.current) {
+.beat.perfect:not(.current) {
   border-color: var(--sc-color-feedback-success);
+}
+.beat.good:not(.current) {
+  border-color: var(--sc-color-feedback-good);
 }
 .beat.failed:not(.current) {
   border-color: var(--sc-color-feedback-error);
 }
-.beat.correct .outcome {
+.beat.perfect .outcome {
   color: var(--sc-color-feedback-success);
+}
+.beat.good .outcome {
+  color: var(--sc-color-feedback-good);
 }
 .beat.failed .outcome {
   color: var(--sc-color-feedback-error);
@@ -131,6 +144,14 @@ span {
     background-color: var(--sc-color-beat-success);
   }
 }
+@keyframes beat-good-fade {
+  from {
+    background-color: var(--sc-color-beat-good-flash);
+  }
+  to {
+    background-color: var(--sc-color-beat-good);
+  }
+}
 @keyframes beat-error-fade {
   from {
     background-color: var(--sc-color-beat-error-flash);
@@ -140,7 +161,8 @@ span {
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .beat.correct,
+  .beat.perfect,
+  .beat.good,
   .beat.failed {
     animation: none;
   }

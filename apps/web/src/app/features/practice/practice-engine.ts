@@ -10,7 +10,7 @@ import type { PracticeAudio } from './practice-audio';
 
 export type SessionPhase =
   'ready' | 'loading' | 'listening' | 'countdown' | 'playing' | 'exit' | 'audio-error' | 'result';
-export type SessionFeedback = 'correct' | 'missed' | 'extra' | null;
+export type SessionFeedback = 'perfect' | 'good' | 'missed' | 'extra' | null;
 export interface SessionView {
   phase: SessionPhase;
   beat: number | null;
@@ -112,7 +112,8 @@ export class PracticeEngine {
     const before = evaluate(this.exercise, this.hits, elapsed);
     this.hits.push(elapsed);
     const after = evaluate(this.exercise, this.hits, elapsed);
-    this.feedback = after.correct > before.correct ? 'correct' : 'extra';
+    this.feedback =
+      after.perfect > before.perfect ? 'perfect' : after.good > before.good ? 'good' : 'extra';
     this.feedbackUntil = this.audio.now() + 650;
     // The model is never replayed during an attempt. Only the player's own hit sounds.
     try {
