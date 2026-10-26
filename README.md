@@ -39,6 +39,11 @@ la démonstration SQL. L’ancien lien `?preview=practice` ouvre aussi ce parcou
 4. Consulter les frappes correctes, manquées et supplémentaires, puis **Rejouer**
    ou **Réécouter**. Le jeu continue après une erreur ; aucun score global n’est ajouté.
 
+Les cases réussies ont un fondu vert, les coups manqués ou supplémentaires un
+fondu rouge. Une teinte et un libellé restent visibles jusqu’au rejeu ; le
+contour ambre repère toujours le temps courant. Les silences respectés restent
+neutres. Les animations sont désactivées si la réduction des mouvements est demandée.
+
 La séquence est coup/coup/silence/coup/coup/silence/coup/silence. La tolérance de
 démonstration est ±150 ms, bornes incluses ; chaque frappe et chaque note ne peuvent
 être associées qu’une fois. Une frappe hors fenêtre peut laisser une note manquée

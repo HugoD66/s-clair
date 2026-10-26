@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
-import { firstExercise } from './exercise';
+import { firstExercise, type BeatOutcome } from './exercise';
 
 @Component({
   selector: 'sc-practice-sequence',
@@ -11,5 +11,6 @@ import { firstExercise } from './exercise';
 })
 export class PracticeSequence {
   readonly currentBeat = input<number | null>(null);
+  readonly outcomes = input<readonly BeatOutcome[]>([]);
   readonly beats = firstExercise.beats;
 }

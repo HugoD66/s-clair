@@ -13,6 +13,10 @@
   --sc-color-brand-surface: #f6eddb;
   --sc-color-feedback-success: #a5dac2;
   --sc-color-feedback-error: #f4b5a7;
+  --sc-color-beat-success: #213b33;
+  --sc-color-beat-success-flash: #315c49;
+  --sc-color-beat-error: #422c32;
+  --sc-color-beat-error-flash: #713e3e;
   --sc-color-focus: #bbdcff;
   --sc-color-action-secondary-hover: #2c4256;
   --sc-color-action-secondary-pressed: #354e64;

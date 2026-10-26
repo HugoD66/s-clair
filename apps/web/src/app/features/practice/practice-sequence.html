@@ -1,15 +1,24 @@
 <ol class="sequence" [attr.aria-label]="'practice.sequenceLabel' | translate">
-  @for (hit of beats; track $index) {
+  @for (hit of beats; track $index) { @let outcome = outcomes()[$index];
   <li
     class="beat"
     [class.rest]="!hit"
     [class.current]="currentBeat() === $index"
+    [class.correct]="outcome?.judgement === 'correct' && !outcome?.extra"
+    [class.failed]="outcome?.judgement === 'missed' || outcome?.extra"
     [attr.aria-current]="currentBeat() === $index ? 'step' : null"
   >
     <small>{{ 'practice.beat' | translate }} {{ $index + 1 }}</small>
     <strong aria-hidden="true">{{ hit ? '●' : '—' }}</strong>
     <span>{{ (hit ? 'practice.hit' : 'practice.rest') | translate }}</span>
-    @if (currentBeat() === $index) { <small class="now">{{ 'practice.now' | translate }}</small> }
+    <small class="now">{{ currentBeat() === $index ? ('practice.now' | translate) : '' }}</small>
+    <small class="outcome">
+      @if (outcome?.judgement; as judgement) {
+      <span aria-hidden="true">{{ judgement === 'correct' ? '✓' : '×' }}</span>
+      {{ ('practice.beatOutcome.' + judgement) | translate }} } @if (outcome?.extra) { @if
+      (outcome?.judgement) { <span aria-hidden="true"> · </span> }
+      <span aria-hidden="true">+</span> {{ 'practice.beatOutcome.extra' | translate }} }
+    </small>
   </li>
   }
 </ol>
