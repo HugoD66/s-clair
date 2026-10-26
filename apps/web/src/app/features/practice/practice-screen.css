@@ -94,6 +94,12 @@ p {
 .success strong {
   color: var(--sc-color-feedback-success);
 }
+.good {
+  border-left: var(--sc-feedback-border-width) solid var(--sc-color-feedback-good);
+}
+.good strong {
+  color: var(--sc-color-feedback-good);
+}
 .audio-error {
   border-left: var(--sc-feedback-border-width) solid var(--sc-color-feedback-error);
 }

@@ -36,32 +36,34 @@ test('plays the model, counts in, evaluates Space hits and offers a clean replay
   await page.keyboard.down('Space');
   await page.keyboard.down('Space'); // Held key must not count twice.
   await page.keyboard.up('Space');
-  await expect(page.locator('.feedback')).toContainText('Coup correct');
-  await expect(page.locator('.beat').nth(0)).toHaveClass(/correct/);
-  await expect(page.locator('.beat').nth(0).locator('.outcome')).toContainText('Réussi');
+  await expect(page.locator('.feedback')).toContainText(/Parfait|Bon/);
+  await expect(page.locator('.beat').nth(0)).toHaveClass(/perfect|good/);
+  await expect(page.locator('.beat').nth(0).locator('.outcome')).toContainText(/Parfait|Bon/);
   for (const number of [2, 3, 4, 5, 7]) {
     await beat(page, number);
     await page.keyboard.press('Space'); // Beat 3 deliberately adds a hit during a rest.
     await expect(page.locator('.beat').nth(number - 1)).toHaveClass(
-      number === 3 ? /failed/ : /correct/,
+      number === 3 ? /failed/ : /perfect|good/,
     );
   }
   await expect(page.getByRole('heading', { name: 'Ton bilan' })).toBeFocused({ timeout: 10000 });
-  await expect(page.locator('sc-practice-result dd')).toHaveText(['5', '0', '1']);
-  await expect(page.locator('.beat.correct')).toHaveCount(5);
+  const counts = await page.locator('sc-practice-result dd').allTextContents();
+  expect(Number(counts[0]) + Number(counts[1])).toBe(5);
+  expect(counts.slice(2)).toEqual(['0', '1']);
+  await expect(page.locator('.beat.perfect, .beat.good')).toHaveCount(5);
   await expect(page.locator('.beat.failed')).toHaveCount(1);
   await expect(page.locator('.beat').nth(2).locator('.outcome')).toContainText('En trop');
   await page.getByRole('button', { name: 'English', exact: true }).click();
   await expect(page.getByRole('heading', { name: 'Your results' })).toBeVisible();
-  await expect(page.locator('sc-practice-result dd')).toHaveText(['5', '0', '1']);
+  await expect(page.locator('sc-practice-result dd')).toHaveText(counts);
   await page.getByRole('button', { name: 'Play again', exact: true }).click();
   await expect(page.locator('main')).toHaveAttribute('data-phase', 'ready');
   await expect(page.locator('sc-practice-result')).toHaveCount(0);
-  await expect(page.locator('.beat.correct, .beat.failed')).toHaveCount(0);
+  await expect(page.locator('.beat.perfect, .beat.good, .beat.failed')).toHaveCount(0);
   await page.getByRole('button', { name: 'Start', exact: true }).focus();
   await page.keyboard.press('Space'); // Starting via Space must not hit the first note.
   await expect(page.getByRole('heading', { name: 'Your results' })).toBeVisible({ timeout: 15000 });
-  await expect(page.locator('sc-practice-result dd')).toHaveText(['0', '5', '0']);
+  await expect(page.locator('sc-practice-result dd')).toHaveText(['0', '0', '5', '0']);
   await expect(page.locator('.beat.failed')).toHaveCount(5);
   await expect(page.locator('.beat.failed').first().locator('.outcome')).toContainText('Missed');
   await page.emulateMedia({ reducedMotion: 'reduce' });

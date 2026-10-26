@@ -4,7 +4,8 @@
     class="beat"
     [class.rest]="!hit"
     [class.current]="currentBeat() === $index"
-    [class.correct]="outcome?.judgement === 'correct' && !outcome?.extra"
+    [class.perfect]="outcome?.judgement === 'perfect' && !outcome?.extra"
+    [class.good]="outcome?.judgement === 'good' && !outcome?.extra"
     [class.failed]="outcome?.judgement === 'missed' || outcome?.extra"
     [attr.aria-current]="currentBeat() === $index ? 'step' : null"
   >
@@ -14,7 +15,9 @@
     <small class="now">{{ currentBeat() === $index ? ('practice.now' | translate) : '' }}</small>
     <small class="outcome">
       @if (outcome?.judgement; as judgement) {
-      <span aria-hidden="true">{{ judgement === 'correct' ? '✓' : '×' }}</span>
+      <span aria-hidden="true"
+        >{{ judgement === 'perfect' ? '★' : judgement === 'good' ? '✓' : '×' }}</span
+      >
       {{ ('practice.beatOutcome.' + judgement) | translate }} } @if (outcome?.extra) { @if
       (outcome?.judgement) { <span aria-hidden="true"> · </span> }
       <span aria-hidden="true">+</span> {{ 'practice.beatOutcome.extra' | translate }} }

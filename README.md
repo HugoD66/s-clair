@@ -36,13 +36,25 @@ la démonstration SQL. L’ancien lien `?preview=practice` ouvre aussi ce parcou
 2. Après l’écoute, cliquer **Commencer** : le décompte avance de 4 à 1.
 3. Appuyer sur **Espace** sur les coups et respecter les silences. Un appui maintenu
    ne compte qu’une fois ; les boutons et champs conservent leur usage clavier.
-4. Consulter les frappes correctes, manquées et supplémentaires, puis **Rejouer**
+4. Consulter les coups parfaits, bons, ratés et les frappes en trop, puis **Rejouer**
    ou **Réécouter**. Le jeu continue après une erreur ; aucun score global n’est ajouté.
 
-Les cases réussies ont un fondu vert, les coups manqués ou supplémentaires un
-fondu rouge. Une teinte et un libellé restent visibles jusqu’au rejeu ; le
-contour ambre repère toujours le temps courant. Les silences respectés restent
-neutres. Les animations sont désactivées si la réduction des mouvements est demandée.
+La notation dépend de l’écart au coup attendu, en avance comme en retard :
+
+| Écart absolu                     | Mention | Couleur |
+| -------------------------------- | ------- | ------- |
+| Jusqu’à 50 ms inclus             | Parfait | Vert    |
+| Plus de 50 à 150 ms inclus       | Bon     | Jaune   |
+| Au-delà de 150 ms ou coup absent | Raté    | Rouge   |
+
+Les cases affichent un fondu, puis une teinte et un libellé jusqu’au rejeu.
+Le contour ambre repère toujours le temps courant ; les silences respectés
+restent neutres. Les animations respectent la réduction des mouvements.
+Le bilan distingue Parfaits, Bons, Ratés et Frappes en trop : les trois premiers
+compteurs totalisent les cinq coups attendus. Une frappe supplémentaire colore
+sa case en rouge sans effacer la mention du coup déjà évalué.
+Ces seuils sont un réglage d’essai ; ils ne garantissent pas une précision
+matérielle à la milliseconde et ne constituent pas une norme pédagogique.
 
 La séquence est coup/coup/silence/coup/coup/silence/coup/silence. La tolérance de
 démonstration est ±150 ms, bornes incluses ; chaque frappe et chaque note ne peuvent

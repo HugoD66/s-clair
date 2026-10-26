@@ -76,12 +76,8 @@
         "title": "Play with Space",
         "description": "Follow the pulse and observe the rests."
       },
-      "correct": {
-        "title": "Correct hit",
-        "description": "Keep following the pulse."
-      },
       "missed": {
-        "title": "Missed hit",
+        "title": "Missed",
         "description": "Keep going: the next beat is coming."
       },
       "extra": {
@@ -91,6 +87,14 @@
       "paused": {
         "title": "Attempt paused",
         "description": "Choose to continue or leave the session."
+      },
+      "perfect": {
+        "title": "Perfect!",
+        "description": "Keep following the pulse."
+      },
+      "good": {
+        "title": "Good!",
+        "description": "Aim a little closer to the pulse."
       }
     },
     "listen": "Listen to the model",
@@ -108,19 +112,21 @@
       "title": "Your results",
       "complete": "You played all five expected hits and observed the rests.",
       "encouragement": "Review your results, then listen or play again when you are ready.",
-      "correct": "Correct hits",
-      "missed": "Missed hits",
+      "missed": "Missed",
       "extra": "Extra hits",
       "replay": "Play again",
-      "local": "First local exercise, without an account or session history."
+      "local": "First local exercise, without an account or session history.",
+      "perfect": "Perfect",
+      "good": "Good"
     },
     "playLink": "Play the first exercise",
     "key": "Key: Space",
     "resumeNotice": "The attempt is paused. Continue starts a four-beat count-in, then resumes at the same position.",
     "beatOutcome": {
-      "correct": "Correct",
       "missed": "Missed",
-      "extra": "Extra"
+      "extra": "Extra",
+      "perfect": "Perfect",
+      "good": "Good"
     }
   }
 }
