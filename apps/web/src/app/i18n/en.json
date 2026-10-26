@@ -116,6 +116,11 @@
     },
     "playLink": "Play the first exercise",
     "key": "Key: Space",
-    "resumeNotice": "The attempt is paused. Continue starts a four-beat count-in, then resumes at the same position."
+    "resumeNotice": "The attempt is paused. Continue starts a four-beat count-in, then resumes at the same position.",
+    "beatOutcome": {
+      "correct": "Correct",
+      "missed": "Missed",
+      "extra": "Extra"
+    }
   }
 }

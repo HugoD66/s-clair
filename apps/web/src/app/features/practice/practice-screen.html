@@ -32,7 +32,7 @@
   }
   <section class="sc-panel exercise" aria-labelledby="sequence-title">
     <h2 id="sequence-title">{{ 'practice.sequenceTitle' | translate }}</h2>
-    <sc-practice-sequence [currentBeat]="currentBeat()" />
+    <sc-practice-sequence [currentBeat]="currentBeat()" [outcomes]="session()?.outcomes ?? []" />
     <p class="hint">{{ 'practice.sequenceHint' | translate }}</p>
   </section>
   @if (state() !== 'result') {

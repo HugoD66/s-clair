@@ -55,6 +55,7 @@ span {
   color: var(--sc-color-on-accent);
 }
 .now {
+  min-height: 1.5em;
   font-weight: var(--sc-font-weight-current);
 }
 @media (max-width: 75rem) {
@@ -80,5 +81,67 @@ span {
 @container (max-width: 20rem) {
   .sequence {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Keep the amber current-beat outline; the fill now also carries the judgement. */
+.outcome {
+  min-height: 3em;
+  margin-top: var(--sc-space-4);
+  font-weight: var(--sc-font-weight-emphasis);
+}
+.outcome span {
+  font: inherit;
+}
+.beat.correct,
+.beat.failed {
+  color: var(--sc-color-text);
+}
+.beat.correct small,
+.beat.correct strong,
+.beat.failed small,
+.beat.failed strong {
+  color: inherit;
+}
+.beat.correct {
+  background: var(--sc-color-beat-success);
+  animation: beat-success-fade 650ms ease-out;
+}
+.beat.failed {
+  background: var(--sc-color-beat-error);
+  animation: beat-error-fade 650ms ease-out;
+}
+.beat.correct:not(.current) {
+  border-color: var(--sc-color-feedback-success);
+}
+.beat.failed:not(.current) {
+  border-color: var(--sc-color-feedback-error);
+}
+.beat.correct .outcome {
+  color: var(--sc-color-feedback-success);
+}
+.beat.failed .outcome {
+  color: var(--sc-color-feedback-error);
+}
+@keyframes beat-success-fade {
+  from {
+    background-color: var(--sc-color-beat-success-flash);
+  }
+  to {
+    background-color: var(--sc-color-beat-success);
+  }
+}
+@keyframes beat-error-fade {
+  from {
+    background-color: var(--sc-color-beat-error-flash);
+  }
+  to {
+    background-color: var(--sc-color-beat-error);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .beat.correct,
+  .beat.failed {
+    animation: none;
   }
 }

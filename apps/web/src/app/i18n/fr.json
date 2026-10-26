@@ -116,6 +116,11 @@
     },
     "playLink": "Jouer le premier exercice",
     "key": "Touche : Espace",
-    "resumeNotice": "La tentative est en pause. Continuer relance quatre temps de décompte, puis reprend au même endroit."
+    "resumeNotice": "La tentative est en pause. Continuer relance quatre temps de décompte, puis reprend au même endroit.",
+    "beatOutcome": {
+      "correct": "Réussi",
+      "missed": "Manqué",
+      "extra": "En trop"
+    }
   }
 }

@@ -112,10 +112,13 @@ describe('local practice session', () => {
     audio.time = 13700;
     engine.pause();
     expect(engine.view()).toMatchObject({ phase: 'exit', beat: 1, active: true });
+    const pausedOutcomes = engine.view().outcomes;
     expect(audio.events).toHaveLength(0);
     audio.time += 10000;
+    expect(engine.view().outcomes).toEqual(pausedOutcomes);
     expect(engine.hit(audio.time)).toBe(false);
     engine.continue();
+    expect(engine.view().outcomes).toEqual(pausedOutcomes);
     const resumed = audio.time + 4200;
     expect(engine.hit(resumed - 1)).toBe(false);
     audio.time = resumed;
@@ -133,7 +136,12 @@ describe('local practice session', () => {
     engine.continue();
     expect(engine.view()).toMatchObject({ phase: 'countdown', countdown: 4 });
     engine.reset();
-    expect(engine.view()).toMatchObject({ phase: 'ready', active: false, result: null });
+    expect(engine.view()).toMatchObject({
+      phase: 'ready',
+      active: false,
+      result: null,
+      outcomes: [],
+    });
     expect(audio.events).toHaveLength(0);
   });
   it('cancels stale audio activation without starting playback after leaving', async () => {

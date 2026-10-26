@@ -1,4 +1,11 @@
-import { evaluate, firstExercise, type Exercise, type PracticeResult } from './exercise';
+import {
+  evaluate,
+  evaluateDetails,
+  firstExercise,
+  type Exercise,
+  type PracticeResult,
+  type BeatOutcome,
+} from './exercise';
 import type { PracticeAudio } from './practice-audio';
 
 export type SessionPhase =
@@ -12,6 +19,7 @@ export interface SessionView {
   active: boolean;
   feedback: SessionFeedback;
   result: PracticeResult | null;
+  outcomes: readonly BeatOutcome[];
 }
 
 /** Finite local session. Audio, rendering and input adapters share one output clock. */
@@ -208,6 +216,16 @@ export class PracticeEngine {
       active: this.active,
       feedback: this.feedback,
       result: this.result,
+      outcomes:
+        this.active || this.phase === 'result'
+          ? evaluateDetails(
+              this.exercise,
+              this.hits,
+              this.phase === 'exit' || (this.phase === 'countdown' && this.resuming)
+                ? this.frozen
+                : elapsed,
+            ).beats
+          : [],
     };
   }
 }

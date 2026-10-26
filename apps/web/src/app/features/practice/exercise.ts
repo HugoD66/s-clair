@@ -19,7 +19,15 @@ export interface PracticeResult {
   readonly extra: number;
 }
 
-export type HitVerdict = 'correct' | 'extra';
+export interface BeatOutcome {
+  readonly judgement: 'correct' | 'missed' | null;
+  readonly extra: boolean;
+}
+
+export interface PracticeEvaluation {
+  readonly result: PracticeResult;
+  readonly beats: readonly BeatOutcome[];
+}
 
 /** Stateless, input-independent evaluation; every hit and note can match only once. */
 export function evaluate(
@@ -27,23 +35,45 @@ export function evaluate(
   hits: readonly number[],
   elapsedMs: number,
 ): PracticeResult {
+  return evaluateDetails(exercise, hits, elapsedMs).result;
+}
+
+/** Exposes the same judgement per beat for presentation, without a second scoring rule. */
+export function evaluateDetails(
+  exercise: Exercise,
+  hits: readonly number[],
+  elapsedMs: number,
+): PracticeEvaluation {
   const interval = 60_000 / exercise.bpm;
-  const expected = exercise.beats.flatMap((hit, index) => (hit ? [index * interval] : []));
+  const expected = exercise.beats.flatMap((hit, index) =>
+    hit ? [{ time: index * interval, beat: index }] : [],
+  );
+  const beats: { judgement: BeatOutcome['judgement']; extra: boolean }[] = exercise.beats.map(
+    () => ({ judgement: null, extra: false }),
+  );
   const matched = new Set<number>();
   let extra = 0;
   for (const hit of [...hits].sort((a, b) => a - b)) {
     if (!Number.isFinite(hit) || hit > elapsedMs) continue;
     const note = expected.findIndex(
-      (time, index) => !matched.has(index) && Math.abs(time - hit) <= exercise.toleranceMs,
+      ({ time }, index) => !matched.has(index) && Math.abs(time - hit) <= exercise.toleranceMs,
     );
-    if (note === -1) extra++;
-    else matched.add(note);
+    if (note === -1) {
+      extra++;
+      // An unmatched hit belongs visually to the beat in which it occurred.
+      const beat = beats[Math.min(beats.length - 1, Math.max(0, Math.floor(hit / interval)))];
+      if (beat) beat.extra = true;
+    } else {
+      matched.add(note);
+    }
   }
-  return {
-    correct: matched.size,
-    missed: expected.filter(
-      (time, index) => !matched.has(index) && elapsedMs > time + exercise.toleranceMs,
-    ).length,
-    extra,
-  };
+  let missed = 0;
+  expected.forEach(({ time, beat }, index) => {
+    if (matched.has(index)) beats[beat]!.judgement = 'correct';
+    else if (elapsedMs > time + exercise.toleranceMs) {
+      beats[beat]!.judgement = 'missed';
+      missed++;
+    }
+  });
+  return { result: { correct: matched.size, missed, extra }, beats };
 }
