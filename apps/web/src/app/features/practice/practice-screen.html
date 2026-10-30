@@ -54,7 +54,13 @@
     }
     <span>{{ ('practice.feedback.' + feedback() + '.description') | translate }}</span>
   </div>
-  }
+  } @if (session() && state() === 'ready') { @if (diagnostic()) {
+  <sc-microphone-diagnostic (closed)="diagnostic.set(false)" />
+  } @else {
+  <button #diagnosticButton class="sc-button" type="button" (click)="diagnostic.set(true)">
+    {{ 'microphone.open' | translate }}
+  </button>
+  } } @if (!diagnostic()) {
   <div class="actions">
     @switch (state()) { @case ('ready') { @if (session()?.listened) {
     <button class="sc-button sc-button--primary" type="button" (click)="action.emit('start')">
@@ -91,6 +97,7 @@
     <p>{{ 'practice.playingHint' | translate }}</p>
     } }
   </div>
+  }
   <footer>
     <p>
       {{ (state() === 'result' ? 'practice.results.local' : 'practice.keyboardNotice') | translate

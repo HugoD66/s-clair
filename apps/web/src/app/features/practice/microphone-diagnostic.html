@@ -1,0 +1,73 @@
+<section class="sc-panel" aria-labelledby="microphone-title">
+  <div class="heading">
+    <div>
+      <p class="eyebrow">{{ 'microphone.eyebrow' | translate }}</p>
+      <h2 #title id="microphone-title" tabindex="-1">{{ 'microphone.title' | translate }}</h2>
+    </div>
+    <button class="sc-button" type="button" (click)="close()">
+      {{ 'microphone.close' | translate }}
+    </button>
+  </div>
+  <p>{{ 'microphone.description' | translate }}</p>
+  <p class="status" role="status">{{ ('microphone.states.' + state()) | translate }}</p>
+  @if (state() === 'error') {
+  <p class="error" role="alert">{{ ('microphone.errors.' + error()) | translate }}</p>
+  }
+  <div class="readings">
+    <div>
+      <label for="microphone-level">{{ 'microphone.level' | translate }}</label>
+      <meter id="microphone-level" min="0" max="100" [value]="level()">{{ level() }}</meter>
+      <p class="clipping" role="status">
+        {{ (clipped() ? 'microphone.clipped' : 'microphone.levelHint') | translate }}
+      </p>
+    </div>
+    <div class="counter" [class.flash]="flash()">
+      <span>{{ 'microphone.hits' | translate }}</span>
+      <strong data-testid="microphone-count">{{ count() }}</strong>
+    </div>
+  </div>
+  <label for="microphone-sensitivity"
+    >{{ 'microphone.sensitivity' | translate }} : {{ sensitivity() }}</label
+  >
+  <input
+    id="microphone-sensitivity"
+    type="range"
+    min="0"
+    max="100"
+    [value]="sensitivity()"
+    (input)="changeSensitivity($event)"
+    aria-describedby="sensitivity-hint"
+  />
+  <p id="sensitivity-hint">{{ 'microphone.sensitivityHint' | translate }}</p>
+  @if (processed()) {
+  <p>{{ 'microphone.processed' | translate }}</p>
+  }
+  <div class="actions">
+    @if (state() === 'running' || state() === 'loading') {
+    <button class="sc-button" type="button" (click)="stop()">
+      {{ 'microphone.stop' | translate }}
+    </button>
+    } @else {
+    <button class="sc-button sc-button--primary" type="button" (click)="start()">
+      {{ 'microphone.activate' | translate }}
+    </button>
+    }
+    <button class="sc-button" type="button" (click)="reset()">
+      {{ 'microphone.reset' | translate }}
+    </button>
+    <button
+      class="sc-button"
+      type="button"
+      [disabled]="state() !== 'running' || pulseLoading()"
+      [attr.aria-pressed]="pulse()"
+      (click)="togglePulse()"
+    >
+      {{ (pulse() ? 'microphone.stopPulse' : 'microphone.startPulse') | translate }}
+    </button>
+  </div>
+  @if (pulseError()) {
+  <p class="error" role="alert">{{ 'microphone.pulseError' | translate }}</p>
+  }
+  <p>{{ 'microphone.testHint' | translate }}</p>
+  <p class="privacy">{{ 'microphone.privacy' | translate }}</p>
+</section>

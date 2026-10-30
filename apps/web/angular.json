@@ -28,6 +28,11 @@
                 "glob": "logo-s-clair.png",
                 "input": "assets/images",
                 "output": "assets/images"
+              },
+              {
+                "glob": "*.mjs",
+                "input": "assets/audio",
+                "output": "assets/audio"
               }
             ],
             "styles": ["src/styles.css"]
