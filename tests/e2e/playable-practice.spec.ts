@@ -25,7 +25,7 @@ test('plays the model, counts in, evaluates Space hits and offers a clean replay
   const errors: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
   await page.goto('/');
-  await page.getByRole('link', { name: 'Jouer le premier exercice' }).click();
+  await page.getByRole('link', { name: 'Démo', exact: true }).click();
   await expect(page).toHaveURL(/\?practice=1$/);
   await expect(page.getByText(/Simulation visuelle/)).toHaveCount(0);
   await listen(page);

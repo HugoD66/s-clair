@@ -11,7 +11,7 @@ test('shows the logo and supports keyboard navigation while a request is pending
     await route.fulfill({ status: 503, json: { code: 'databaseUnavailable' } });
   });
   try {
-    await page.goto('/');
+    await page.goto('/?demo=records');
     const logo = page.getByRole('img', { name: 'S-Clair', exact: true });
     await expect(logo).toBeVisible();
     await expect
@@ -39,7 +39,7 @@ test('shows the logo and supports keyboard navigation while a request is pending
   }
 });
 test('reads PostgreSQL and translates the same API error without reloading', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/?demo=records');
   await expect(page.getByRole('heading', { name: 'Vérifier la connexion' })).toBeVisible();
   await page.getByRole('button', { name: 'Lire la donnée' }).click();
   await expect(page.getByText('s-clair demo', { exact: true })).toBeVisible();
@@ -55,7 +55,7 @@ test('uses translated fallback for a response without a usable error key', async
   await page.route('**/api/v1/demo-records/**', (route) =>
     route.fulfill({ status: 502, contentType: 'text/html', body: '<html>upstream failed</html>' }),
   );
-  await page.goto('/');
+  await page.goto('/?demo=records');
   await page.getByRole('button', { name: 'Lire la donnée' }).click();
   await expect(page.getByRole('alert')).toHaveText(
     'Une erreur est survenue. Réessaie dans un instant.',
@@ -67,7 +67,7 @@ test('uses translated fallback for a response without a usable error key', async
 });
 test('remains usable at phone width', async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 812 });
-  await page.goto('/');
+  await page.goto('/?demo=records');
   await page.getByRole('button', { name: 'Lire la donnée' }).click();
   await expect(page.getByText('s-clair demo', { exact: true })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);

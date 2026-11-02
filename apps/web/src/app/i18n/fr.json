@@ -165,5 +165,18 @@
     "pulseError": "Le métronome n’a pas pu démarrer. Vérifie la sortie audio puis réessaie.",
     "testHint": "À faible volume, lance le métronome à 60 BPM sans frapper : le compteur devrait rester stable. Teste ensuite tes coups, puis la caisse claire séparément.",
     "privacy": "Audio traité sur cet appareil, sans enregistrement ni envoi au serveur. Le micro s’arrête lorsque tu fermes ce test ou masques l’onglet."
+  },
+  "home": {
+    "eyebrow": "TON ESPACE RYTHMIQUE",
+    "title": "Trouve ton rythme.",
+    "subtitle": "À toi de jouer.",
+    "description": "Un espace pour écouter, pratiquer et progresser à la caisse claire.",
+    "settings": "Paramètres",
+    "demo": "Démo",
+    "listen": "Écoute",
+    "play": "Joue",
+    "progress": "Progresse",
+    "footer": "S-Clair · Le plaisir du rythme",
+    "back": "Retour à l’accueil"
   }
 }
