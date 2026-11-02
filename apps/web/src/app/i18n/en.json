@@ -128,5 +128,42 @@
       "perfect": "Perfect",
       "good": "Good"
     }
+  },
+  "microphone": {
+    "open": "Test microphone",
+    "eyebrow": "Audio diagnostic",
+    "title": "Microphone test",
+    "close": "Close test",
+    "description": "Clap your hands to check detection. Choose your microphone in your browser or system settings. This test does not calculate a grade.",
+    "states": {
+      "idle": "Microphone off",
+      "loading": "Activating… Allow microphone access in your browser.",
+      "running": "Microphone active",
+      "stopped": "Microphone stopped — activate it to resume.",
+      "error": "Microphone unavailable"
+    },
+    "errors": {
+      "unsupported": "The microphone requires a compatible browser and an HTTPS or localhost address.",
+      "denied": "Microphone access was denied. Change the browser permission or close this test to play with the keyboard.",
+      "missing": "No microphone found. Check the selected device.",
+      "busy": "The microphone is inaccessible or being used by another application.",
+      "lost": "The microphone or audio was interrupted. Check your device, then activate the microphone again.",
+      "failed": "Unable to activate the microphone. Check your settings and try again."
+    },
+    "level": "Input level",
+    "levelHint": "Adjust your distance from the microphone.",
+    "clipped": "Signal clipping: move farther from the microphone or lower its gain.",
+    "hits": "Detected hits",
+    "sensitivity": "Sensitivity",
+    "sensitivityHint": "Increase if hits are missed; decrease if noise or the metronome triggers hits.",
+    "processed": "The browser is still applying automatic audio processing. Detection may vary.",
+    "stop": "Stop microphone",
+    "activate": "Activate microphone",
+    "reset": "Reset counter",
+    "startPulse": "Test metronome · 60 s",
+    "stopPulse": "Stop metronome",
+    "pulseError": "The metronome could not start. Check your audio output and try again.",
+    "testHint": "At low volume, start the 60 BPM metronome without playing: the counter should remain steady. Then test your hits, and test the snare drum separately.",
+    "privacy": "Audio is processed on this device, without recording or uploading it. The microphone stops when you close this test or hide the tab."
   }
 }

@@ -128,5 +128,42 @@
       "perfect": "Parfait",
       "good": "Bon"
     }
+  },
+  "microphone": {
+    "open": "Tester le micro",
+    "eyebrow": "Diagnostic audio",
+    "title": "Test du microphone",
+    "close": "Fermer le test",
+    "description": "Tape dans tes mains pour vérifier la détection. Choisis ton microphone dans les réglages du navigateur ou du système. Ce test ne calcule aucune note.",
+    "states": {
+      "idle": "Micro désactivé",
+      "loading": "Activation en cours… Autorise le microphone dans le navigateur.",
+      "running": "Micro actif",
+      "stopped": "Micro arrêté — active-le pour reprendre.",
+      "error": "Micro indisponible"
+    },
+    "errors": {
+      "unsupported": "Le microphone nécessite un navigateur compatible et une adresse HTTPS ou localhost.",
+      "denied": "L’accès au micro a été refusé. Tu peux modifier la permission dans le navigateur ou fermer le test pour jouer au clavier.",
+      "missing": "Aucun microphone trouvé. Vérifie le périphérique sélectionné.",
+      "busy": "Le microphone est inaccessible ou utilisé par une autre application.",
+      "lost": "Le microphone ou le son a été interrompu. Vérifie ton périphérique puis réactive le micro.",
+      "failed": "Impossible d’activer le microphone. Vérifie les réglages puis réessaie."
+    },
+    "level": "Niveau reçu",
+    "levelHint": "Ajuste la distance entre toi et le micro.",
+    "clipped": "Signal saturé : éloigne-toi du micro ou baisse son gain.",
+    "hits": "Coups détectés",
+    "sensitivity": "Sensibilité",
+    "sensitivityHint": "Augmente si des coups sont oubliés ; diminue si le bruit ou le métronome déclenche des coups.",
+    "processed": "Le navigateur applique encore un traitement audio automatique. La détection peut varier.",
+    "stop": "Arrêter le micro",
+    "activate": "Activer le micro",
+    "reset": "Remettre le compteur à zéro",
+    "startPulse": "Tester le métronome · 60 s",
+    "stopPulse": "Arrêter le métronome",
+    "pulseError": "Le métronome n’a pas pu démarrer. Vérifie la sortie audio puis réessaie.",
+    "testHint": "À faible volume, lance le métronome à 60 BPM sans frapper : le compteur devrait rester stable. Teste ensuite tes coups, puis la caisse claire séparément.",
+    "privacy": "Audio traité sur cet appareil, sans enregistrement ni envoi au serveur. Le micro s’arrête lorsque tu fermes ce test ou masques l’onglet."
   }
 }

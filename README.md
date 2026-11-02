@@ -60,8 +60,8 @@ La séquence est coup/coup/silence/coup/coup/silence/coup/silence. La tolérance
 démonstration est ±150 ms, bornes incluses ; chaque frappe et chaque note ne peuvent
 être associées qu’une fois. Une frappe hors fenêtre peut laisser une note manquée
 et compter comme supplémentaire. Ce réglage reste à éprouver sur le matériel réel.
-Les sons sont synthétisés localement par Web Audio ; pas de microphone ni d’asset
-à télécharger. Pendant le jeu, seuls la pulsation et les coups du joueur sonnent.
+Les sons sont synthétisés localement par Web Audio. Le jeu utilise toujours Espace,
+sans accès au microphone. Pendant le jeu, seuls la pulsation et les coups du joueur sonnent.
 
 **Quitter** suspend la tentative et ouvre la confirmation. **Continuer** relance
 quatre temps, puis reprend à la position suspendue ; confirmer abandonne la tentative.
@@ -81,6 +81,36 @@ Les tests couvrent les bornes du jugement, les doubles frappes, les silences,
 la fin de séquence, la pause/reprise, l’abandon, l’audio indisponible et le parcours
 clavier Chromium. L’écoute humaine, la latence du matériel, les lecteurs d’écran
 et les autres navigateurs restent à vérifier avant un essai pédagogique.
+
+## Diagnostic microphone
+
+Avant de lancer l’exercice, **Tester le micro** ouvre un panneau distinct du jeu.
+Cliquer **Activer le micro**, autoriser l’accès dans le navigateur, puis frapper
+dans ses mains : le niveau reçu et le compteur montrent la détection. Régler la
+sensibilité si nécessaire ; un message signale la saturation du signal. Le choix
+du périphérique se fait dans les réglages du navigateur ou du système.
+
+**Tester le métronome · 60 s** joue la même pulsation à 60 BPM que l’exercice.
+À faible volume sur les enceintes, vérifier d’abord que le compteur reste stable
+sans jouer, puis tester les frappes. La fiabilité dépend du micro, du bruit, du
+volume et de la distance ; un essai avec les mains ne valide pas la caisse claire.
+Ce diagnostic ne calcule aucune note et ne mesure pas la latence matérielle.
+
+**Arrêter le micro**, fermer le panneau ou masquer l’onglet libère la capture
+et arrête le métronome. La reprise nécessite une activation explicite. Le compteur
+reste visible après arrêt ; **Remettre le compteur à zéro** démarre une nouvelle
+série. Fermer le test permet de reprendre le parcours clavier habituel.
+
+L’audio est traité localement par Web Audio/AudioWorklet, sans enregistrement,
+transmission au serveur ni retour du micro vers les enceintes. L’accès requiert
+HTTPS ou `localhost`, ainsi qu’un navigateur compatible. Les erreurs de permission,
+de périphérique et d’interruption sont affichées en FR/EN.
+
+Les tests utilisent des signaux synthétiques et un vrai AudioWorklet Chromium.
+Dans la recette Docker, un proxy de test sur l’interface locale permet au navigateur
+d’accéder au build via localhost, sans désactiver ses protections.
+Les essais acoustiques et les mesures de précision sur matériel réel restent nécessaires
+avant de brancher le micro sur la notation.
 
 ## Démarrage local
 

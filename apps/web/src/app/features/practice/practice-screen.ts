@@ -9,6 +9,7 @@ import {
   inject,
   input,
   output,
+  signal,
   viewChild,
 } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -17,15 +18,18 @@ import type { PracticeAction, PracticeState } from './practice-state';
 import type { SessionView } from './practice-engine';
 import { PracticeResultPanel } from './practice-result';
 import { LanguageService } from '../../i18n/language.service';
+import { MicrophoneDiagnostic } from './microphone-diagnostic';
 
 @Component({
   selector: 'sc-practice-screen',
-  imports: [TranslatePipe, PracticeSequence, PracticeResultPanel],
+  imports: [TranslatePipe, PracticeSequence, PracticeResultPanel, MicrophoneDiagnostic],
   templateUrl: './practice-screen.html',
   styleUrl: './practice-screen.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PracticeScreen {
+  readonly diagnostic = signal(false);
+  private readonly diagnosticButton = viewChild<ElementRef<HTMLButtonElement>>('diagnosticButton');
   readonly previewState = input<PracticeState>('ready');
   readonly session = input<SessionView | null>(null);
   readonly state = computed(() => this.session()?.phase ?? this.previewState());
@@ -63,7 +67,11 @@ export class PracticeScreen {
     };
     inject(DestroyRef).onDestroy(restoreScroll);
     let previousPhase = this.state();
+    let previousDiagnostic = false;
     afterRenderEffect(() => {
+      const diagnostic = this.diagnostic();
+      if (previousDiagnostic && !diagnostic) this.diagnosticButton()?.nativeElement.focus();
+      previousDiagnostic = diagnostic;
       const phase = this.state();
       if (
         this.session() &&
