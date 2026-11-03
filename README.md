@@ -27,10 +27,25 @@ TypeScript strict, workspace pnpm, CLI locaux ; le front et l’API se rechargen
 pendant le développement. Le [plan de développement](https://github.com/HugoD66/s-clair/issues/2)
 présente les lots suivants.
 
+## Accueil et paramètres
+
+[L’accueil](http://localhost:4200) propose **Paramètres** et **Démo**, avec une
+animation décorative qui respecte la réduction des mouvements. Le choix FR/EN
+est conservé entre les pages.
+
+[Paramètres](http://localhost:4200/?page=settings) ouvre directement le panneau
+microphone, sans partition, écoute de modèle ni décompte. Le micro reste éteint
+jusqu’à **Activer le micro**. Fermer le test ou revenir à l’accueil libère la
+capture. La sensibilité reste un réglage de la session de diagnostic ; elle n’est
+pas enregistrée durablement par cette page.
+
+La démonstration technique SQL reste accessible sur
+[?demo=records](http://localhost:4200/?demo=records).
+
 ## Premier exercice jouable
 
 Ouvrir [l’entraînement](http://localhost:4200/?practice=1), accessible depuis
-la démonstration SQL. L’ancien lien `?preview=practice` ouvre aussi ce parcours.
+le bouton **Démo** de l’accueil. L’ancien lien `?preview=practice` ouvre aussi ce parcours.
 
 1. Cliquer **Écouter le modèle** : huit temps à 60 BPM, cinq coups et trois silences.
 2. Après l’écoute, cliquer **Commencer** : le décompte avance de 4 à 1.
@@ -75,7 +90,7 @@ Le calcul pur (`exercise.ts`), le déroulement (`practice-engine.ts`), l’audio
 séparés dans `apps/web/src/app/features/practice`. Les composants de présentation
 restent partagés avec [la revue des états](http://localhost:4200/?preview=practice-states),
 qui est une simulation distincte. Aucun routeur, compte ou nouvelle dépendance
-n’est ajouté ; la démonstration SQL reste à la racine.
+n’est ajouté ; la démonstration SQL dispose de son URL dédiée.
 
 Les tests couvrent les bornes du jugement, les doubles frappes, les silences,
 la fin de séquence, la pause/reprise, l’abandon, l’audio indisponible et le parcours
@@ -84,7 +99,8 @@ et les autres navigateurs restent à vérifier avant un essai pédagogique.
 
 ## Diagnostic microphone
 
-Avant de lancer l’exercice, **Tester le micro** ouvre un panneau distinct du jeu.
+Depuis l’accueil, **Paramètres** ouvre le diagnostic seul. Dans l’exercice,
+**Tester le micro** reste aussi disponible avant de commencer.
 Cliquer **Activer le micro**, autoriser l’accès dans le navigateur, puis frapper
 dans ses mains : le niveau reçu et le compteur montrent la détection. Régler la
 sensibilité si nécessaire ; un message signale la saturation du signal. Le choix
@@ -126,7 +142,7 @@ cp .env.example .env
 ./scripts/dev.sh up
 ```
 
-Ouvrir [http://localhost:4200](http://localhost:4200). Choisir **Lire la donnée**
+Ouvrir [la démonstration technique](http://localhost:4200/?demo=records). Choisir **Lire la donnée**
 pour afficher `s-clair demo`, puis **Tester une donnée absente** pour l’erreur.
 Passer à **English** : le message déjà affiché change sans rechargement.
 

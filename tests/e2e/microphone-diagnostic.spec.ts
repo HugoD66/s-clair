@@ -50,7 +50,7 @@ declare global {
   }
 }
 
-async function microphone(page: Page, mode: FixtureMode = 'ready') {
+async function microphone(page: Page, mode: FixtureMode = 'ready', settings = false) {
   await page.addInitScript((mode) => {
     const fixture = {
       requests: 0,
@@ -81,6 +81,7 @@ async function microphone(page: Page, mode: FixtureMode = 'ready') {
         const stop = track.stop.bind(track);
         track.stop = () => {
           stop();
+          localStorage.setItem('fixture.microphoneStopped', 'true');
           void context.close();
         };
         fixture.disconnect = () => track.dispatchEvent(new Event('ended'));
@@ -102,6 +103,12 @@ async function microphone(page: Page, mode: FixtureMode = 'ready') {
       },
     });
   }, mode);
+  if (settings) {
+    await page.goto('/');
+    await page.getByRole('link', { name: 'Paramètres' }).click();
+    await expect(page.getByRole('heading', { name: 'Paramètres', exact: true })).toBeFocused();
+    return;
+  }
   await page.goto('/?practice=1');
   await page.getByRole('button', { name: 'Tester le micro', exact: true }).click();
   await expect(
@@ -206,3 +213,26 @@ test('stops on device loss or hidden tab and allows a fresh activation', async (
   await released(page);
   expect(await page.evaluate(() => window.microphoneFixture.requests)).toBe(3);
 });
+
+for (const exit of ['close', 'home'] as const) {
+  test(`settings isolates the microphone and releases it on ${exit}`, async ({ page }) => {
+    await microphone(page, 'ready', true);
+    await expect(page).toHaveURL(/page=settings$/);
+    await expect(page.getByRole('button', { name: 'Écouter le modèle' })).toHaveCount(0);
+    await expect(page.locator('sc-practice-sequence')).toHaveCount(0);
+    expect(await page.evaluate(() => window.microphoneFixture.requests)).toBe(0);
+    await page.getByRole('button', { name: 'Activer le micro', exact: true }).click();
+    await expect(page.locator('sc-microphone-diagnostic .status')).toHaveText('Micro actif');
+    await page.evaluate(() => window.microphoneFixture.hit());
+    await expect(page.getByTestId('microphone-count')).toHaveText('1');
+    if (exit === 'close')
+      await page.getByRole('button', { name: 'Fermer le test', exact: true }).click();
+    else await page.getByRole('link', { name: 'Retour à l’accueil' }).first().click();
+    await expect(
+      page.getByRole('heading', { name: 'Trouve ton rythme. À toi de jouer.' }),
+    ).toBeVisible();
+    expect(await page.evaluate(() => localStorage.getItem('fixture.microphoneStopped'))).toBe(
+      'true',
+    );
+  });
+}

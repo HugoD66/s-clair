@@ -6,6 +6,7 @@ import {
   DestroyRef,
   ElementRef,
   inject,
+  input,
   output,
   signal,
   viewChild,
@@ -21,6 +22,7 @@ import { MicrophoneAudio, type MicrophoneError } from './microphone-audio';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MicrophoneDiagnostic {
+  readonly focusOnOpen = input(true);
   readonly closed = output<void>();
   readonly state = signal<'idle' | 'loading' | 'running' | 'stopped' | 'error'>('idle');
   readonly error = signal<MicrophoneError>('failed');
@@ -57,7 +59,9 @@ export class MicrophoneDiagnostic {
   );
 
   constructor() {
-    afterNextRender(() => this.title().nativeElement.focus());
+    afterNextRender(() => {
+      if (this.focusOnOpen()) this.title().nativeElement.focus();
+    });
     const hidden = () => {
       if (this.document.visibilityState === 'hidden') this.stop();
     };

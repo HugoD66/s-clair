@@ -1,0 +1,28 @@
+<sc-page-header />
+<main id="main" tabindex="-1">
+  <section aria-labelledby="home-title">
+    <div class="rhythm" aria-hidden="true">
+      @for (height of [12, 28, 48, 80, 122, 80, 48, 28, 12]; track $index) {
+      <i [style.height.px]="height" [style.animation-delay.s]="-$index * 0.3"></i>
+      }
+    </div>
+    <p class="eyebrow">{{ 'home.eyebrow' | translate }}</p>
+    <h1 id="home-title">
+      {{ 'home.title' | translate }}<span>{{ 'home.subtitle' | translate }}</span>
+    </h1>
+    <p class="description">{{ 'home.description' | translate }}</p>
+    <div class="actions">
+      <a class="sc-button action" href="?page=settings"
+        >{{ 'home.settings' | translate }}<span aria-hidden="true">⚙</span></a
+      >
+      <a class="sc-button sc-button--primary action" href="?practice=1"
+        >{{ 'home.demo' | translate }}<span aria-hidden="true">→</span></a
+      >
+    </div>
+    <p class="caption">
+      {{ 'home.listen' | translate }}<span aria-hidden="true"></span>{{ 'home.play' | translate
+      }}<span aria-hidden="true"></span>{{ 'home.progress' | translate }}
+    </p>
+  </section>
+</main>
+<footer>{{ 'home.footer' | translate }}</footer>
