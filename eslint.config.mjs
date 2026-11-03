@@ -4,6 +4,8 @@ import angular from 'angular-eslint';
 import prettier from 'eslint-config-prettier';
 import globals from 'globals';
 
+const serverImports = ['**/api/src/**', '@s-clair/api', '@prisma/*'];
+
 export default tseslint.config(
   {
     ignores: [
@@ -41,10 +43,19 @@ export default tseslint.config(
     extends: [...angular.configs.tsRecommended],
     processor: angular.processInlineTemplates,
     rules: {
-      'no-restricted-imports': [
-        'error',
-        { patterns: ['**/api/src/**', '@s-clair/api', '@prisma/*'] },
-      ],
+      'no-restricted-imports': ['error', { patterns: serverImports }],
+    },
+  },
+  {
+    files: ['apps/web/src/app/core/**/*.ts', 'apps/web/src/app/shared/**/*.ts'],
+    rules: {
+      'no-restricted-imports': ['error', { patterns: [...serverImports, '**/features/**'] }],
+    },
+  },
+  {
+    files: ['apps/web/src/app/features/microphone/**/*.ts'],
+    rules: {
+      'no-restricted-imports': ['error', { patterns: [...serverImports, '**/practice/**'] }],
     },
   },
   {

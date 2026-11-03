@@ -1,7 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
-import { BrowserPracticeAudio } from './practice-audio';
+import { BrowserAudioOutput } from '../../core/audio/audio-output';
 import { PracticeEngine } from './practice-engine';
 import { PracticeScreen } from './practice-screen';
 import type { PracticeAction } from './practice-state';
@@ -17,7 +17,7 @@ import type { PracticeAction } from './practice-state';
 })
 export class PracticeSession {
   private readonly document = inject(DOCUMENT);
-  private readonly audio = new BrowserPracticeAudio();
+  private readonly audio = new BrowserAudioOutput();
   private readonly engine = new PracticeEngine(this.audio);
   readonly view = signal(this.engine.view());
 

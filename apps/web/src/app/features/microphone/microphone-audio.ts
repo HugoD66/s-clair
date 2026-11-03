@@ -1,4 +1,4 @@
-import { BrowserPracticeAudio } from './practice-audio';
+import { BrowserAudioOutput } from '../../core/audio/audio-output';
 
 export type MicrophoneError = 'unsupported' | 'denied' | 'missing' | 'busy' | 'lost' | 'failed';
 export interface MicrophoneReport {
@@ -15,7 +15,7 @@ export class MicrophoneAudio {
   private stream: MediaStream | null = null;
   private source: MediaStreamAudioSourceNode | null = null;
   private processor: AudioWorkletNode | null = null;
-  private readonly pulse = new BrowserPracticeAudio();
+  private readonly pulse = new BrowserAudioOutput();
   private pulseTimer: ReturnType<typeof setTimeout> | undefined;
   private pulseGeneration = 0;
   private revision = 0;

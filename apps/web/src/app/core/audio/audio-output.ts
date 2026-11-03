@@ -1,18 +1,18 @@
-export type PracticeSound = 'pulse' | 'count' | 'drum';
+export type OutputSound = 'pulse' | 'count' | 'drum';
 
 /** Absolute times share the audio output clock, in milliseconds. */
-export interface PracticeAudio {
+export interface AudioOutput {
   open(): Promise<void>;
   now(): number;
   startTime(): number;
-  schedule(sound: PracticeSound, atMs: number): void;
+  schedule(sound: OutputSound, atMs: number): void;
   stop(): void;
   close(): void;
   running(): boolean;
 }
 
 /** Short synthesized sounds; no microphone, network assets or recorded audio. */
-export class BrowserPracticeAudio implements PracticeAudio {
+export class BrowserAudioOutput implements AudioOutput {
   private context: AudioContext | null = null;
   private noise: AudioBuffer | null = null;
   private readonly sources = new Set<AudioScheduledSourceNode>();
@@ -65,7 +65,7 @@ export class BrowserPracticeAudio implements PracticeAudio {
     return Math.max(this.now() + 200, (this.context?.currentTime ?? 0) * 1000 + 60);
   }
 
-  schedule(sound: PracticeSound, atMs: number): void {
+  schedule(sound: OutputSound, atMs: number): void {
     const context = this.context;
     if (!context || !this.running()) throw new Error('Audio is not running');
     const at = Math.max(context.currentTime, atMs / 1000);

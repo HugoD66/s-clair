@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import type { PracticeAudio, PracticeSound } from './practice-audio';
+import type { AudioOutput, OutputSound } from '../../core/audio/audio-output';
 import { PracticeEngine } from './practice-engine';
 
-class FakeAudio implements PracticeAudio {
+class FakeAudio implements AudioOutput {
   time = 0;
   available = true;
-  events: { sound: PracticeSound; at: number }[] = [];
+  events: { sound: OutputSound; at: number }[] = [];
   open(): Promise<void> {
     return this.available ? Promise.resolve() : Promise.reject(new Error('unavailable'));
   }
@@ -18,7 +18,7 @@ class FakeAudio implements PracticeAudio {
   running(): boolean {
     return this.available;
   }
-  schedule(sound: PracticeSound, at: number): void {
+  schedule(sound: OutputSound, at: number): void {
     if (!this.available) throw new Error('unavailable');
     this.events.push({ sound, at });
   }

@@ -6,7 +6,7 @@ import {
   type PracticeResult,
   type BeatOutcome,
 } from './exercise';
-import type { PracticeAudio } from './practice-audio';
+import type { AudioOutput } from '../../core/audio/audio-output';
 
 export type SessionPhase =
   'ready' | 'loading' | 'listening' | 'countdown' | 'playing' | 'exit' | 'audio-error' | 'result';
@@ -41,7 +41,7 @@ export class PracticeEngine {
   private readonly duration: number;
 
   constructor(
-    private readonly audio: PracticeAudio,
+    private readonly audio: AudioOutput,
     private readonly exercise: Exercise = firstExercise,
   ) {
     this.interval = 60_000 / exercise.bpm;

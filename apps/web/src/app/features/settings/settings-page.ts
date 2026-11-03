@@ -10,7 +10,7 @@ import {
 import { TranslatePipe } from '@ngx-translate/core';
 import { PageLayout } from '../../shared/page-layout';
 import { PAGE_LINKS } from '../../shared/page-links';
-import { MicrophoneDiagnostic } from '../practice/microphone-diagnostic';
+import { MicrophoneDiagnostic } from '../microphone/microphone-diagnostic';
 
 @Component({
   selector: 'sc-settings-page',

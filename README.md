@@ -1,11 +1,12 @@
 # S-Clair
 
 Application web d’entraînement à la caisse claire. Le socle Docker comprend
-un premier exercice jouable au clavier, avec écoute et bilan local FR/EN.
+un accueil, des paramètres micro et un premier exercice jouable au clavier,
+avec écoute et bilan local FR/EN.
 
 ## Ce que permet le socle
 
-La page de démonstration lit une donnée fictive dans PostgreSQL via l’API, permet
+La démonstration technique SQL, distincte de l’accueil, lit une donnée fictive dans PostgreSQL via l’API, permet
 de demander une donnée absente et affiche l’erreur en français ou en anglais.
 Le choix de langue est mémorisé dans le navigateur. Aucun compte ni donnée élève
 n’est utilisé à cette étape.
@@ -85,9 +86,10 @@ fermeture utilisent la confirmation native quand le navigateur la permet ; sa
 présentation reste contrôlée par le navigateur. Aucune tentative ni aucun bilan
 n’est enregistré. Une perte audio interrompt le jeu avec une action de nouvel essai.
 
-Le calcul pur (`exercise.ts`), le déroulement (`practice-engine.ts`), l’audio
-(`practice-audio.ts`) et l’adaptation clavier/Angular (`practice-session.ts`) sont
-séparés dans `apps/web/src/app/features/practice`. Les composants de présentation
+Le calcul pur (`exercise.ts`), le déroulement (`practice-engine.ts`) et
+l’adaptation clavier/Angular (`practice-session.ts`) sont séparés dans
+`apps/web/src/app/features/practice`. La sortie audio partagée avec le diagnostic
+est dans `apps/web/src/app/core/audio/audio-output.ts`. Les composants de présentation
 restent partagés avec [la revue des états](http://localhost:4200/?preview=practice-states),
 qui est une simulation distincte. Aucun routeur, compte ou nouvelle dépendance
 n’est ajouté ; la démonstration SQL dispose de son URL dédiée.
@@ -106,7 +108,8 @@ dans ses mains : le niveau reçu et le compteur montrent la détection. Régler 
 sensibilité si nécessaire ; un message signale la saturation du signal. Le choix
 du périphérique se fait dans les réglages du navigateur ou du système.
 
-**Tester le métronome · 60 s** joue la même pulsation à 60 BPM que l’exercice.
+Dans les paramètres, ouvrir **Options de test** pour accéder au métronome
+et à la remise à zéro. **Tester le métronome · 60 s** joue la même pulsation à 60 BPM que l’exercice.
 À faible volume sur les enceintes, vérifier d’abord que le compteur reste stable
 sans jouer, puis tester les frappes. La fiabilité dépend du micro, du bruit, du
 volume et de la distance ; un essai avec les mains ne valide pas la caisse claire.
@@ -239,9 +242,58 @@ avec son pair TypeScript 5 ; les applications utilisent TypeScript 6.
 - `compose.yaml` : développement avec rechargement et volume persistant.
 - `compose.test.yaml` : recette isolée des images compilées.
 
+### Architecture et responsabilités
+
+| Emplacement                          | Responsabilité                                          | Dépendances autorisées dans cette base             |
+| ------------------------------------ | ------------------------------------------------------- | -------------------------------------------------- |
+| `apps/web/src/app/app.ts`            | Choisir la page à partir de l’URL                       | Pages de fonctionnalités                           |
+| `apps/web/src/app/shared`            | Cadre visuel, header, liens publics                     | i18n ; aucune fonctionnalité                       |
+| `apps/web/src/app/core/audio`        | Sortie sonore et horloge navigateur                     | Web Audio ; aucune fonctionnalité                  |
+| `features/home`, `features/settings` | Composer les pages                                      | Cadre partagé ; diagnostic pour les paramètres     |
+| `features/microphone`                | Diagnostic, capture et libération des ressources        | Audio partagé, assets worklet ; aucun entraînement |
+| `features/practice`                  | Calcul, déroulement, adaptation clavier et présentation | Contrat audio, sortie navigateur, diagnostic       |
+| `features/demo-records`              | Démonstration de lecture API                            | HttpClient et types générés                        |
+| `apps/web/assets/audio`              | Détecteur pur et processeur AudioWorklet natifs         | API du worklet ; aucun composant Angular           |
+| `apps/api/src`                       | Contrôleurs HTTP, services, accès SQL et santé          | Prisma dans les services ; aucun front             |
+| `contracts`, `tools/contracts`       | Contrat HTTP et génération des types                    | OpenAPI exporté depuis l’API                       |
+
+Les chemins `features/*` sont relatifs à `apps/web/src/app`. Le détecteur reste
+un module `.mjs` directement importé par le worklet et ses tests ; ne pas en
+créer une copie TypeScript susceptible de diverger. Les fichiers générés
+(`api-types.ts`, client Prisma, OpenAPI) se régénèrent avec les commandes prévues.
+
+```mermaid
+flowchart LR
+  App --> Home[Accueil]
+  App --> Settings[Paramètres]
+  App --> Practice[Entraînement]
+  Home --> Layout[Cadre partagé]
+  Settings --> Layout
+  Settings --> Micro[Diagnostic micro]
+  Practice --> Micro
+  Practice --> Audio[Sortie audio]
+  Micro --> Audio
+  Micro --> Worklet[Worklet et détecteur]
+```
+
+Le moteur d’exercice dépend du contrat `AudioOutput`, injecté à sa construction ;
+il ne connaît ni Angular, ni les événements clavier, ni le micro. `PracticeSession`
+adapte le navigateur au moteur. `MicrophoneDiagnostic` possède sa capture et la
+ferme à la destruction, à la fermeture ou lorsque l’onglet est masqué. Les horloges
+de capture et de sortie ne sont pas automatiquement interchangeables : leur
+alignement reste à qualifier avant toute notation micro.
+
+ESLint empêche les imports du backend dans le front, des fonctionnalités dans
+`core`/`shared`, et de l’entraînement dans le diagnostic. Ces contrôles complètent
+la revue des dépendances ; ils ne remplacent pas les tests de comportement.
+Le backend garde son `AppModule` simple : contrôleurs → services → Prisma.
+Aucun module métier vide, magasin d’état global ou routeur n’est nécessaire au
+parcours actuel. Leur introduction devra répondre à un besoin concret d’un lot.
+
 ### Ajouter une page à l’accueil ou aux paramètres
 
-Les pages publiques utilisent `shared/PageLayout` (`sc-page-layout`) : header
+L’accueil et les paramètres utilisent
+[PageLayout](apps/web/src/app/shared/page-layout.ts) (`sc-page-layout`) : header
 logo/langues, lien d’évitement et unique `<main id="main">` sont partagés.
 Projeter le contenu de la page directement dans ce composant ; ajouter un
 `<footer page-footer>` uniquement si nécessaire. La variante par défaut `content`
@@ -254,7 +306,8 @@ dans `shared/page-links.ts`. La sélection des pages reste dans `App`, sans rout
 Les liens chargent une page complète : le cycle de fermeture audio reste donc actif.
 Chaque page gère son titre et son éventuel focus initial.
 
-Le diagnostic micro est un seul composant partagé avec l’exercice : `minimal`
+Le diagnostic micro de `features/microphone` est un seul composant partagé
+avec l’exercice : `minimal`
 sélectionne la présentation des paramètres, avec ses styles dans un fichier dédié.
 Les options de test utilisent un panneau HTML repliable ; détection, compteur et
 cycle de capture sont communs aux deux présentations.
