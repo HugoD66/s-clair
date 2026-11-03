@@ -239,6 +239,26 @@ avec son pair TypeScript 5 ; les applications utilisent TypeScript 6.
 - `compose.yaml` : développement avec rechargement et volume persistant.
 - `compose.test.yaml` : recette isolée des images compilées.
 
+### Ajouter une page à l’accueil ou aux paramètres
+
+Les pages publiques utilisent `shared/PageLayout` (`sc-page-layout`) : header
+logo/langues, lien d’évitement et unique `<main id="main">` sont partagés.
+Projeter le contenu de la page directement dans ce composant ; ajouter un
+`<footer page-footer>` uniquement si nécessaire. La variante par défaut `content`
+convient aux réglages ; `layout="hero"` fournit le centrage et le halo de l’accueil.
+Le shell d’entraînement reste indépendant.
+
+Conserver les fichiers TypeScript, HTML et CSS de chaque page dans son dossier
+`features`, les traductions dans les catalogues FR/EN et les destinations publiques
+dans `shared/page-links.ts`. La sélection des pages reste dans `App`, sans routeur.
+Les liens chargent une page complète : le cycle de fermeture audio reste donc actif.
+Chaque page gère son titre et son éventuel focus initial.
+
+Le diagnostic micro est un seul composant partagé avec l’exercice : `minimal`
+sélectionne la présentation des paramètres, avec ses styles dans un fichier dédié.
+Les options de test utilisent un panneau HTML repliable ; détection, compteur et
+cycle de capture sont communs aux deux présentations.
+
 Les images de recette servent à vérifier les builds ; l’hébergement, les secrets
 et la préparation d’une mise en ligne feront l’objet d’un lot dédié. Les documents
 internes, questionnaires, secrets et artefacts locaux restent exclus du dépôt

@@ -1,0 +1,5 @@
+<sc-page-layout>
+  <a class="back" [href]="links.home">← {{ 'home.back' | translate }}</a>
+  <h1 #title tabindex="-1">{{ 'home.settings' | translate }}</h1>
+  <sc-microphone-diagnostic [focusOnOpen]="false" [minimal]="true" (closed)="goHome()" />
+</sc-page-layout>

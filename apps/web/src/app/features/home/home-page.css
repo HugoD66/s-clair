@@ -1,25 +1,5 @@
 :host {
-  display: flex;
-  flex-direction: column;
-  min-height: 100svh;
-}
-main {
-  flex: 1;
-  display: grid;
-  place-items: center;
-  padding: 60px 24px 75px;
-  position: relative;
-  isolation: isolate;
-  scroll-margin-top: 8rem;
-}
-main::before {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  width: min(900px, 100%);
-  height: min(650px, 100%);
-  background: radial-gradient(ellipse, #d58e2515 0%, #536f9220 42%, transparent 70%);
-  pointer-events: none;
+  display: block;
 }
 section {
   text-align: center;
@@ -148,9 +128,6 @@ footer {
   }
 }
 @media (max-width: 600px) {
-  main {
-    padding: 35px 24px 50px;
-  }
   .rhythm {
     height: 110px;
     margin-bottom: 24px;
