@@ -88,3 +88,11 @@ input {
     border-color: var(--sc-color-border-subtle);
   }
 }
+
+.activation {
+  margin-block: 24px;
+}
+.sensitivity-value {
+  font-variant-numeric: tabular-nums;
+  margin-inline-start: 8px;
+}

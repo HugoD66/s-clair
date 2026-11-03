@@ -1,0 +1,32 @@
+<a class="sc-skip-link" href="#main">{{ 'skipToContent' | translate }}</a>
+<header>
+  <a class="sc-brand" [href]="links.home" [attr.aria-label]="'home.back' | translate">
+    <img
+      src="assets/images/logo-s-clair.png"
+      alt="S-Clair"
+      width="2172"
+      height="724"
+      fetchpriority="high"
+    />
+  </a>
+  <nav [attr.aria-label]="'language' | translate">
+    <button
+      type="button"
+      lang="fr"
+      aria-label="Français"
+      [attr.aria-pressed]="language.current() === 'fr'"
+      (click)="language.select('fr')"
+    >
+      FR
+    </button>
+    <button
+      type="button"
+      lang="en"
+      aria-label="English"
+      [attr.aria-pressed]="language.current() === 'en'"
+      (click)="language.select('en')"
+    >
+      EN
+    </button>
+  </nav>
+</header>

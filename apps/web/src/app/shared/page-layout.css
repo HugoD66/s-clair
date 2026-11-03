@@ -1,0 +1,32 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+}
+main {
+  flex: 1;
+  min-width: 0;
+  padding: 36px clamp(24px, 3vw, 40px);
+  scroll-margin-top: 8rem;
+}
+.hero {
+  display: grid;
+  place-items: center;
+  padding: 60px 24px 75px;
+  position: relative;
+  isolation: isolate;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  width: min(900px, 100%);
+  height: min(650px, 100%);
+  background: radial-gradient(ellipse, #d58e2515 0%, #536f9220 42%, transparent 70%);
+  pointer-events: none;
+}
+@media (max-width: 600px) {
+  .hero {
+    padding: 35px 24px 50px;
+  }
+}

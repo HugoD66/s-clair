@@ -18,7 +18,7 @@ import type { PracticeAction, PracticeState } from './practice-state';
 import type { SessionView } from './practice-engine';
 import { PracticeResultPanel } from './practice-result';
 import { LanguageService } from '../../i18n/language.service';
-import { MicrophoneDiagnostic } from './microphone-diagnostic';
+import { MicrophoneDiagnostic } from '../microphone/microphone-diagnostic';
 
 @Component({
   selector: 'sc-practice-screen',

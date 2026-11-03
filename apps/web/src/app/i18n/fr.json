@@ -164,7 +164,14 @@
     "stopPulse": "Arrêter le métronome",
     "pulseError": "Le métronome n’a pas pu démarrer. Vérifie la sortie audio puis réessaie.",
     "testHint": "À faible volume, lance le métronome à 60 BPM sans frapper : le compteur devrait rester stable. Teste ensuite tes coups, puis la caisse claire séparément.",
-    "privacy": "Audio traité sur cet appareil, sans enregistrement ni envoi au serveur. Le micro s’arrête lorsque tu fermes ce test ou masques l’onglet."
+    "privacy": "Audio traité sur cet appareil, sans enregistrement ni envoi au serveur. Le micro s’arrête lorsque tu fermes ce test ou masques l’onglet.",
+    "minimal": {
+      "title": "Ton microphone.",
+      "intro": "Quelques frappes, un réglage, et à toi de jouer.",
+      "sensitivityHint": "Ajuste pour détecter tes frappes, sans capter les petits bruits.",
+      "options": "Options de test",
+      "privacy": "Le son reste sur cet appareil. Aucun enregistrement."
+    }
   },
   "home": {
     "eyebrow": "TON ESPACE RYTHMIQUE",

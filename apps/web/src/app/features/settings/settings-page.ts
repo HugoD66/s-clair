@@ -8,50 +8,25 @@ import {
   viewChild,
 } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
-import { PageHeader } from '../../shared/page-header';
-import { MicrophoneDiagnostic } from '../practice/microphone-diagnostic';
+import { PageLayout } from '../../shared/page-layout';
+import { PAGE_LINKS } from '../../shared/page-links';
+import { MicrophoneDiagnostic } from '../microphone/microphone-diagnostic';
 
 @Component({
   selector: 'sc-settings-page',
-  imports: [TranslatePipe, PageHeader, MicrophoneDiagnostic],
-  template: `
-    <sc-page-header />
-    <main id="main" tabindex="-1">
-      <a class="back" href="/">← {{ 'home.back' | translate }}</a>
-      <h1 #title tabindex="-1">{{ 'home.settings' | translate }}</h1>
-      <sc-microphone-diagnostic [focusOnOpen]="false" (closed)="goHome()" />
-    </main>
-  `,
-  styles: `
-    :host {
-      display: block;
-      min-height: 100svh;
-    }
-    main {
-      padding: 36px clamp(24px, 3vw, 40px);
-      scroll-margin-top: 8rem;
-    }
-    h1 {
-      overflow-wrap: anywhere;
-      margin: 24px 0 0;
-      font-size: var(--sc-font-size-title);
-    }
-    .back {
-      display: inline-flex;
-      align-items: center;
-      min-height: 44px;
-      color: var(--sc-color-text-muted);
-    }
-  `,
+  imports: [TranslatePipe, PageLayout, MicrophoneDiagnostic],
+  templateUrl: './settings-page.html',
+  styleUrl: './settings-page.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SettingsPage {
+  readonly links = PAGE_LINKS;
   private readonly document = inject(DOCUMENT);
   private readonly title = viewChild.required<ElementRef<HTMLHeadingElement>>('title');
   constructor() {
     afterNextRender(() => this.title().nativeElement.focus());
   }
   goHome(): void {
-    this.document.location.href = '/';
+    this.document.location.href = this.links.home;
   }
 }

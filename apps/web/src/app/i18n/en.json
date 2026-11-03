@@ -164,7 +164,14 @@
     "stopPulse": "Stop metronome",
     "pulseError": "The metronome could not start. Check your audio output and try again.",
     "testHint": "At low volume, start the 60 BPM metronome without playing: the counter should remain steady. Then test your hits, and test the snare drum separately.",
-    "privacy": "Audio is processed on this device, without recording or uploading it. The microphone stops when you close this test or hide the tab."
+    "privacy": "Audio is processed on this device, without recording or uploading it. The microphone stops when you close this test or hide the tab.",
+    "minimal": {
+      "title": "Your microphone.",
+      "intro": "A few hits, one adjustment, and you’re ready to play.",
+      "sensitivityHint": "Adjust to pick up your hits without triggering on quiet background noise.",
+      "options": "Test options",
+      "privacy": "Sound stays on this device. Nothing is recorded."
+    }
   },
   "home": {
     "eyebrow": "YOUR RHYTHM SPACE",

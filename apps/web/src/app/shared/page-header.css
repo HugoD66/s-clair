@@ -1,0 +1,46 @@
+:host {
+  display: block;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 20px 40px;
+  border-bottom: 1px solid #ffffff0d;
+  background: var(--sc-color-canvas);
+}
+.sc-brand {
+  width: 174px;
+  padding: 8px 12px;
+}
+nav {
+  display: flex;
+  gap: 4px;
+}
+button {
+  font: inherit;
+  font-size: 0.875rem;
+  border: 0;
+  background: transparent;
+  color: var(--sc-color-text-muted);
+  min-height: 44px;
+  min-width: 44px;
+  border-radius: var(--sc-radius-control);
+  cursor: pointer;
+}
+button[aria-pressed='true'] {
+  background: #ffffff0b;
+  color: var(--sc-color-accent);
+}
+@media (max-width: 600px) {
+  header {
+    padding: 16px 20px;
+  }
+  .sc-brand {
+    width: 144px;
+  }
+}

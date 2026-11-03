@@ -63,3 +63,24 @@ test('keeps the home and settings readable across reference viewports and enlarg
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await expect(page.locator('.rhythm i').first()).toHaveCSS('animation-name', 'none');
 });
+
+test('keeps microphone test tools in an accessible disclosure', async ({ page }) => {
+  await page.goto('/?page=settings');
+  const options = page.locator('sc-microphone-diagnostic details');
+  await expect(options).not.toHaveAttribute('open');
+  await expect(
+    page.getByRole('button', { name: 'Remettre le compteur à zéro', exact: true }),
+  ).toBeHidden();
+  await options.locator('summary').focus();
+  await page.keyboard.press('Enter');
+  await expect(options).toHaveAttribute('open', '');
+  await expect(
+    page.getByRole('button', { name: 'Remettre le compteur à zéro', exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole('button', { name: 'Tester le métronome · 60 s', exact: true }),
+  ).toBeDisabled();
+  await page.getByRole('button', { name: 'English', exact: true }).click();
+  await expect(options.locator('summary')).toHaveText('Test options');
+  await expect(options).toHaveAttribute('open', '');
+});

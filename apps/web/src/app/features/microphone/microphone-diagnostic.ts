@@ -1,4 +1,4 @@
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, NgTemplateOutlet } from '@angular/common';
 import {
   afterNextRender,
   ChangeDetectionStrategy,
@@ -16,13 +16,14 @@ import { MicrophoneAudio, type MicrophoneError } from './microphone-audio';
 
 @Component({
   selector: 'sc-microphone-diagnostic',
-  imports: [TranslatePipe],
+  imports: [TranslatePipe, NgTemplateOutlet],
   templateUrl: './microphone-diagnostic.html',
-  styleUrl: './microphone-diagnostic.css',
+  styleUrls: ['./microphone-diagnostic.css', './microphone-diagnostic-minimal.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MicrophoneDiagnostic {
   readonly focusOnOpen = input(true);
+  readonly minimal = input(false);
   readonly closed = output<void>();
   readonly state = signal<'idle' | 'loading' | 'running' | 'stopped' | 'error'>('idle');
   readonly error = signal<MicrophoneError>('failed');

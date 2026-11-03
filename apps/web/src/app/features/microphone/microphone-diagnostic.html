@@ -1,0 +1,114 @@
+<section class="sc-panel" [class.minimal]="minimal()" aria-labelledby="microphone-title">
+  @if (minimal()) {
+  <div class="microphone-mark" aria-hidden="true">
+    <svg viewBox="0 0 48 48" fill="none">
+      <rect x="18" y="7" width="12" height="24" rx="6" />
+      <path d="M12 23v2a12 12 0 0 0 24 0v-2M24 37v5M18 42h12" />
+    </svg>
+  </div>
+  }
+  <div class="heading">
+    <div>
+      @if (!minimal()) {
+      <p class="eyebrow">{{ 'microphone.eyebrow' | translate }}</p>
+      }
+      <h2 #title id="microphone-title" tabindex="-1">
+        {{ (minimal() ? 'microphone.minimal.title' : 'microphone.title') | translate }}
+      </h2>
+    </div>
+    @if (!minimal()) {
+    <button class="sc-button" type="button" (click)="close()">
+      {{ 'microphone.close' | translate }}
+    </button>
+    }
+  </div>
+  <p class="intro">
+    {{ (minimal() ? 'microphone.minimal.intro' : 'microphone.description') | translate }}
+  </p>
+  <p class="status" [class.active]="state() === 'running'" role="status">
+    {{ ('microphone.states.' + state()) | translate }}
+  </p>
+  @if (state() === 'error') {
+  <p class="error" role="alert">{{ ('microphone.errors.' + error()) | translate }}</p>
+  }
+  <div class="activation">
+    @if (state() === 'running' || state() === 'loading') {
+    <button class="sc-button" type="button" (click)="stop()">
+      {{ 'microphone.stop' | translate }}
+    </button>
+    } @else {
+    <button class="sc-button sc-button--primary" type="button" (click)="start()">
+      {{ 'microphone.activate' | translate }}
+    </button>
+    }
+  </div>
+  <div class="readings">
+    <div>
+      <label for="microphone-level">{{ 'microphone.level' | translate }}</label>
+      <meter id="microphone-level" min="0" max="100" [value]="level()">{{ level() }}</meter>
+      <p class="clipping" role="status">
+        @if (clipped()) { {{ 'microphone.clipped' | translate }} } @else if (!minimal()) { {{
+        'microphone.levelHint' | translate }} }
+      </p>
+    </div>
+    <div class="counter" [class.flash]="flash()">
+      <span>{{ 'microphone.hits' | translate }}</span>
+      <strong data-testid="microphone-count">{{ count() }}</strong>
+    </div>
+  </div>
+  <div class="sensitivity">
+    <label for="microphone-sensitivity"
+      >{{ 'microphone.sensitivity' | translate }}
+      <span class="sensitivity-value">{{ sensitivity() }}</span></label
+    >
+    <input
+      id="microphone-sensitivity"
+      type="range"
+      min="0"
+      max="100"
+      [value]="sensitivity()"
+      (input)="changeSensitivity($event)"
+      aria-describedby="sensitivity-hint"
+    />
+    <p id="sensitivity-hint">
+      {{ (minimal() ? 'microphone.minimal.sensitivityHint' : 'microphone.sensitivityHint') |
+      translate }}
+    </p>
+  </div>
+  @if (processed()) {
+  <p>{{ 'microphone.processed' | translate }}</p>
+  } @if (minimal()) {
+  <details>
+    <summary>{{ 'microphone.minimal.options' | translate }}</summary>
+    <ng-container [ngTemplateOutlet]="options" />
+  </details>
+  <p class="privacy short">{{ 'microphone.minimal.privacy' | translate }}</p>
+  <button class="sc-button close-minimal" type="button" (click)="close()">
+    {{ 'microphone.close' | translate }}
+  </button>
+  } @else { <ng-container [ngTemplateOutlet]="options" /> } @if (pulseError()) {
+  <p class="error" role="alert">{{ 'microphone.pulseError' | translate }}</p>
+  }
+</section>
+<ng-template #options>
+  <div class="actions">
+    <button class="sc-button" type="button" (click)="reset()">
+      {{ 'microphone.reset' | translate }}
+    </button>
+    <button
+      class="sc-button"
+      type="button"
+      [disabled]="state() !== 'running' || pulseLoading()"
+      [attr.aria-pressed]="pulse()"
+      (click)="togglePulse()"
+    >
+      {{ (pulse() ? 'microphone.stopPulse' : 'microphone.startPulse') | translate }}
+    </button>
+  </div>
+  @if (minimal()) {
+  <p>{{ 'microphone.description' | translate }}</p>
+  <p>{{ 'microphone.sensitivityHint' | translate }}</p>
+  }
+  <p>{{ 'microphone.testHint' | translate }}</p>
+  <p class="privacy">{{ 'microphone.privacy' | translate }}</p>
+</ng-template>
